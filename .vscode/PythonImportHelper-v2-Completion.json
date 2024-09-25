@@ -1,0 +1,257 @@
+[
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "UploadFile",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "File",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "process_video",
+        "importPath": "app.workers.task_queue",
+        "description": "app.workers.task_queue",
+        "isExtraImport": true,
+        "detail": "app.workers.task_queue",
+        "documentation": {}
+    },
+    {
+        "label": "ml_service",
+        "importPath": "app.services",
+        "description": "app.services",
+        "isExtraImport": true,
+        "detail": "app.services",
+        "documentation": {}
+    },
+    {
+        "label": "ml_service",
+        "importPath": "app.services",
+        "description": "app.services",
+        "isExtraImport": true,
+        "detail": "app.services",
+        "documentation": {}
+    },
+    {
+        "label": "uuid4",
+        "importPath": "uuid",
+        "description": "uuid",
+        "isExtraImport": true,
+        "detail": "uuid",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "shared_task",
+        "importPath": "celery",
+        "description": "celery",
+        "isExtraImport": true,
+        "detail": "celery",
+        "documentation": {}
+    },
+    {
+        "label": "Celery",
+        "importPath": "celery",
+        "description": "celery",
+        "isExtraImport": true,
+        "detail": "celery",
+        "documentation": {}
+    },
+    {
+        "label": "CELERY_URL",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "Env",
+        "importPath": "envparse",
+        "description": "envparse",
+        "isExtraImport": true,
+        "detail": "envparse",
+        "documentation": {}
+    },
+    {
+        "label": "CORSMiddleware",
+        "importPath": "fastapi.middleware.cors",
+        "description": "fastapi.middleware.cors",
+        "isExtraImport": true,
+        "detail": "fastapi.middleware.cors",
+        "documentation": {}
+    },
+    {
+        "label": "routes",
+        "importPath": "app.api",
+        "description": "app.api",
+        "isExtraImport": true,
+        "detail": "app.api",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "backend.app.api.routes",
+        "description": "backend.app.api.routes",
+        "peekOfCode": "router = APIRouter()\n# Load Video From User\n@router.post(\"/upload-video/\")\nasync def upload_video(file: UploadFile = File(...)):\n    vid = uuid4()\n    file_location = f\"app/uploads/{file.filename}\"\n    with open(file_location, \"wb+\") as file_object:\n        file_object.write(file.file.read())\n    # TODO: Send task to Selery\n    # process_video.delay(file_location, vid)",
+        "detail": "backend.app.api.routes",
+        "documentation": {}
+    },
+    {
+        "label": "videos_collection",
+        "kind": 5,
+        "importPath": "backend.app.api.routes",
+        "description": "backend.app.api.routes",
+        "peekOfCode": "videos_collection = {}",
+        "detail": "backend.app.api.routes",
+        "documentation": {}
+    },
+    {
+        "label": "VideoModel",
+        "kind": 6,
+        "importPath": "backend.app.models.video",
+        "description": "backend.app.models.video",
+        "peekOfCode": "class VideoModel(BaseModel):\n    video_id: str\n    file_path: str\n    status: str\n    result: dict = None",
+        "detail": "backend.app.models.video",
+        "documentation": {}
+    },
+    {
+        "label": "save_results",
+        "kind": 2,
+        "importPath": "backend.app.services.ml_service",
+        "description": "backend.app.services.ml_service",
+        "peekOfCode": "def save_results(video_id: str, data: dict): \n    # TODO: add save to db\n    results_db[video_id] = data\n#get data\ndef get_results(video_id: str):\n    return results_db.get(video_id)\n# init db\nresults_db = {}",
+        "detail": "backend.app.services.ml_service",
+        "documentation": {}
+    },
+    {
+        "label": "get_results",
+        "kind": 2,
+        "importPath": "backend.app.services.ml_service",
+        "description": "backend.app.services.ml_service",
+        "peekOfCode": "def get_results(video_id: str):\n    return results_db.get(video_id)\n# init db\nresults_db = {}",
+        "detail": "backend.app.services.ml_service",
+        "documentation": {}
+    },
+    {
+        "label": "results_db",
+        "kind": 5,
+        "importPath": "backend.app.services.ml_service",
+        "description": "backend.app.services.ml_service",
+        "peekOfCode": "results_db = {}",
+        "detail": "backend.app.services.ml_service",
+        "documentation": {}
+    },
+    {
+        "label": "process_video",
+        "kind": 2,
+        "importPath": "backend.app.workers.task_queue",
+        "description": "backend.app.workers.task_queue",
+        "peekOfCode": "def process_video(file_path: str):\n    # TODO: Add ML \n    time.sleep(10) #TODO: Remove\n    video_id = \"video_123\"  \n    # TODO: Change to db\n    ml_service.save_results(video_id, {\"csv_data\": \"example,data\"})\n    return video_id",
+        "detail": "backend.app.workers.task_queue",
+        "documentation": {}
+    },
+    {
+        "label": "celery",
+        "kind": 5,
+        "importPath": "backend.app.celery_config",
+        "description": "backend.app.celery_config",
+        "peekOfCode": "celery = Celery(\n    \"ml\",\n    broker=CELERY_URL\n)\n# Load tasks\ncelery.autodiscover_tasks([\"app.workers.task_queue\"])",
+        "detail": "backend.app.celery_config",
+        "documentation": {}
+    },
+    {
+        "label": "env",
+        "kind": 5,
+        "importPath": "backend.app.config",
+        "description": "backend.app.config",
+        "peekOfCode": "env = Env()\nDATABASE_URL = env.str(\n    'MONGOURL',\n    default=\"postgresql+asyncpg://admin:root@0.0.0.0:5438/postgres\"\n)\nCELERY_URL = env.str(\n    \"CELERY_URL\",\n    default=\"pyamqp://guest:guest@localhost//\"\n)",
+        "detail": "backend.app.config",
+        "documentation": {}
+    },
+    {
+        "label": "DATABASE_URL",
+        "kind": 5,
+        "importPath": "backend.app.config",
+        "description": "backend.app.config",
+        "peekOfCode": "DATABASE_URL = env.str(\n    'MONGOURL',\n    default=\"postgresql+asyncpg://admin:root@0.0.0.0:5438/postgres\"\n)\nCELERY_URL = env.str(\n    \"CELERY_URL\",\n    default=\"pyamqp://guest:guest@localhost//\"\n)",
+        "detail": "backend.app.config",
+        "documentation": {}
+    },
+    {
+        "label": "CELERY_URL",
+        "kind": 5,
+        "importPath": "backend.app.config",
+        "description": "backend.app.config",
+        "peekOfCode": "CELERY_URL = env.str(\n    \"CELERY_URL\",\n    default=\"pyamqp://guest:guest@localhost//\"\n)",
+        "detail": "backend.app.config",
+        "documentation": {}
+    },
+    {
+        "label": "read_root",
+        "kind": 2,
+        "importPath": "backend.app.main",
+        "description": "backend.app.main",
+        "peekOfCode": "def read_root():\n    return {\"message\": \"Backend is running!\"}",
+        "detail": "backend.app.main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "backend.app.main",
+        "description": "backend.app.main",
+        "peekOfCode": "app = FastAPI()\n# TODO: Change in prod\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],  \n    allow_credentials=True,\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"],\n)\n# Подключаем маршруты",
+        "detail": "backend.app.main",
+        "documentation": {}
+    }
+]
