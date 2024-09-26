@@ -72,20 +72,38 @@
         "documentation": {}
     },
     {
-        "label": "BaseModel",
-        "importPath": "pydantic",
-        "description": "pydantic",
-        "isExtraImport": true,
-        "detail": "pydantic",
-        "documentation": {}
-    },
-    {
         "label": "time",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "time",
         "description": "time",
         "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "csv",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "csv",
+        "description": "csv",
+        "detail": "csv",
+        "documentation": {}
+    },
+    {
+        "label": "io",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "io",
+        "description": "io",
+        "detail": "io",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
         "documentation": {}
     },
     {
@@ -170,6 +188,15 @@
         "description": "app.database.mongo",
         "peekOfCode": "class MongoDBClient:\n    def __init__(self, uri: str, db_name: str):\n        self.client = MongoClient(uri)\n        self.db = self.client[db_name]\n    def get_collection(self, collection_name: str):\n        return self.db[collection_name]",
         "detail": "app.database.mongo",
+        "documentation": {}
+    },
+    {
+        "label": "ml_template",
+        "kind": 2,
+        "importPath": "app.ml.mainMl",
+        "description": "app.ml.mainMl",
+        "peekOfCode": "def ml_template(_id: str, url: str) -> tuple:\n    data = [\n        ['ID', 'Name', 'Age'],\n        [1, 'John', 28],\n        [2, 'Jane', 22]\n    ]\n    output = io.StringIO()\n    csv_writer = csv.writer(output)\n    csv_writer.writerows(data)\n    csv_content = output.getvalue()",
+        "detail": "app.ml.mainMl",
         "documentation": {}
     },
     {
