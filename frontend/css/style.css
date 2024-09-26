@@ -1,0 +1,154 @@
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and container styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+    background-color: #fff;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    max-width: 500px;
+    width: 100%;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #4a90e2;
+}
+
+p {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    color: #666;
+}
+
+/* Form styles */
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.file-label {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+}
+
+.file-label input[type="file"] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.file-label .file-custom {
+    background-color: #4a90e2;
+    color: #fff;
+    padding: 0.75rem 2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.file-label:hover .file-custom {
+    background-color: #357abd;
+}
+
+.file-upload-space {
+    border-radius: 20%;
+}
+
+.upload-button {
+    background-color: #4a90e2;
+    color: #fff;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.upload-button:hover {
+    background-color: #357abd;
+}
+
+/* Result message */
+.result-message {
+    margin-top: 2rem;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.result-message a {
+    color: #4a90e2;
+    text-decoration: none;
+}
+
+.result-message a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    color: #999;
+}
+
+/* Add this to existing style.css */
+
+/* CSV Table Styles */
+.csv-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-size: 1rem;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.csv-table th, .csv-table td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.csv-table th {
+    background-color: #4a90e2;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+.csv-table tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.csv-table tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.csv-table tr:last-of-type {
+    border-bottom: 2px solid #4a90e2;
+}
+
