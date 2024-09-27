@@ -4,7 +4,7 @@ env = Env()
 
 DATABASE_URL = env.str(
     'DB_URL',
-    default="mongodb://qioto:qwerty@mongo:27017/"
+    default="mongodb://qioto:qwerty@localhost:27017/"
 )
 
 CELERY_URL = env.str(

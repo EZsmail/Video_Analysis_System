@@ -88,36 +88,19 @@
         "documentation": {}
     },
     {
-        "label": "Celery",
-        "importPath": "celery",
-        "description": "celery",
+        "label": "DATABASE_URL",
+        "importPath": "app.config",
+        "description": "app.config",
         "isExtraImport": true,
-        "detail": "celery",
+        "detail": "app.config",
         "documentation": {}
     },
     {
-        "label": "CELERY_URL",
-        "importPath": "app.config.config",
-        "description": "app.config.config",
+        "label": "UPLOAD_PATH",
+        "importPath": "app.config",
+        "description": "app.config",
         "isExtraImport": true,
-        "detail": "app.config.config",
-        "documentation": {}
-    },
-    {
-        "label": "os",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "os",
-        "description": "os",
-        "detail": "os",
-        "documentation": {}
-    },
-    {
-        "label": "Env",
-        "importPath": "envparse",
-        "description": "envparse",
-        "isExtraImport": true,
-        "detail": "envparse",
+        "detail": "app.config",
         "documentation": {}
     },
     {
@@ -126,6 +109,30 @@
         "description": "pymongo",
         "isExtraImport": true,
         "detail": "pymongo",
+        "documentation": {}
+    },
+    {
+        "label": "MongoClient",
+        "importPath": "pymongo",
+        "description": "pymongo",
+        "isExtraImport": true,
+        "detail": "pymongo",
+        "documentation": {}
+    },
+    {
+        "label": "MongoClient",
+        "importPath": "pymongo",
+        "description": "pymongo",
+        "isExtraImport": true,
+        "detail": "pymongo",
+        "documentation": {}
+    },
+    {
+        "label": "ConnectionFailure",
+        "importPath": "pymongo.errors",
+        "description": "pymongo.errors",
+        "isExtraImport": true,
+        "detail": "pymongo.errors",
         "documentation": {}
     },
     {
@@ -142,6 +149,30 @@
         "description": "pymongo.errors",
         "isExtraImport": true,
         "detail": "pymongo.errors",
+        "documentation": {}
+    },
+    {
+        "label": "ConnectionFailure",
+        "importPath": "pymongo.errors",
+        "description": "pymongo.errors",
+        "isExtraImport": true,
+        "detail": "pymongo.errors",
+        "documentation": {}
+    },
+    {
+        "label": "Celery",
+        "importPath": "celery",
+        "description": "celery",
+        "isExtraImport": true,
+        "detail": "celery",
+        "documentation": {}
+    },
+    {
+        "label": "Env",
+        "importPath": "envparse",
+        "description": "envparse",
+        "isExtraImport": true,
+        "detail": "envparse",
         "documentation": {}
     },
     {
@@ -172,6 +203,46 @@
         "documentation": {}
     },
     {
+        "label": "celery_app",
+        "importPath": "app.config.celery_config",
+        "description": "app.config.celery_config",
+        "isExtraImport": true,
+        "detail": "app.config.celery_config",
+        "documentation": {}
+    },
+    {
+        "label": "ML",
+        "importPath": "app.ml",
+        "description": "app.ml",
+        "isExtraImport": true,
+        "detail": "app.ml",
+        "documentation": {}
+    },
+    {
+        "label": "video_data_repo",
+        "importPath": "app.api.routes",
+        "description": "app.api.routes",
+        "isExtraImport": true,
+        "detail": "app.api.routes",
+        "documentation": {}
+    },
+    {
+        "label": "video_state_repo",
+        "importPath": "app.api.routes",
+        "description": "app.api.routes",
+        "isExtraImport": true,
+        "detail": "app.api.routes",
+        "documentation": {}
+    },
+    {
+        "label": "DATABASE_URL",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
+        "documentation": {}
+    },
+    {
         "label": "CORSMiddleware",
         "importPath": "fastapi.middleware.cors",
         "description": "fastapi.middleware.cors",
@@ -192,7 +263,7 @@
         "kind": 5,
         "importPath": "app.api.routes",
         "description": "app.api.routes",
-        "peekOfCode": "router = APIRouter()\n# DB init\ndb_client = MongoDBClient()\nvideo_state_repo = VideoStateRepository(db_client)\nvideo_data_repo = VideoDataRepository(db_client)\n#upload video\n@router.post(\"/upload-video/\")\nasync def upload_video(file: UploadFile = File(...)):\n    vid = str(uuid4())  \n    file_location = f\"app/uploads/{file.filename}\"",
+        "peekOfCode": "router = APIRouter()\n# DB init\ndb_client = MongoDBClient(uri=DATABASE_URL, db_name=\"video_db\")\nvideo_state_repo = VideoStateRepository(db_client)\nvideo_data_repo = VideoDataRepository(db_client)\n@router.post(\"/upload-video/\")\nasync def upload_video(file: UploadFile = File(...)):\n    # Проверка подключения к БД\n    try:\n        client = MongoClient(DATABASE_URL)",
         "detail": "app.api.routes",
         "documentation": {}
     },
@@ -201,7 +272,7 @@
         "kind": 5,
         "importPath": "app.api.routes",
         "description": "app.api.routes",
-        "peekOfCode": "db_client = MongoDBClient()\nvideo_state_repo = VideoStateRepository(db_client)\nvideo_data_repo = VideoDataRepository(db_client)\n#upload video\n@router.post(\"/upload-video/\")\nasync def upload_video(file: UploadFile = File(...)):\n    vid = str(uuid4())  \n    file_location = f\"app/uploads/{file.filename}\"\n    with open(file_location, \"wb+\") as file_object:\n        file_object.write(file.file.read())",
+        "peekOfCode": "db_client = MongoDBClient(uri=DATABASE_URL, db_name=\"video_db\")\nvideo_state_repo = VideoStateRepository(db_client)\nvideo_data_repo = VideoDataRepository(db_client)\n@router.post(\"/upload-video/\")\nasync def upload_video(file: UploadFile = File(...)):\n    # Проверка подключения к БД\n    try:\n        client = MongoClient(DATABASE_URL)\n        client.admin.command('ping')\n        print(\"MongoDB доступен\")",
         "detail": "app.api.routes",
         "documentation": {}
     },
@@ -210,7 +281,7 @@
         "kind": 5,
         "importPath": "app.api.routes",
         "description": "app.api.routes",
-        "peekOfCode": "video_state_repo = VideoStateRepository(db_client)\nvideo_data_repo = VideoDataRepository(db_client)\n#upload video\n@router.post(\"/upload-video/\")\nasync def upload_video(file: UploadFile = File(...)):\n    vid = str(uuid4())  \n    file_location = f\"app/uploads/{file.filename}\"\n    with open(file_location, \"wb+\") as file_object:\n        file_object.write(file.file.read())\n    # Добавление состояния видео (начальное состояние \"processing\")",
+        "peekOfCode": "video_state_repo = VideoStateRepository(db_client)\nvideo_data_repo = VideoDataRepository(db_client)\n@router.post(\"/upload-video/\")\nasync def upload_video(file: UploadFile = File(...)):\n    # Проверка подключения к БД\n    try:\n        client = MongoClient(DATABASE_URL)\n        client.admin.command('ping')\n        print(\"MongoDB доступен\")\n    except ConnectionFailure as e:",
         "detail": "app.api.routes",
         "documentation": {}
     },
@@ -219,16 +290,16 @@
         "kind": 5,
         "importPath": "app.api.routes",
         "description": "app.api.routes",
-        "peekOfCode": "video_data_repo = VideoDataRepository(db_client)\n#upload video\n@router.post(\"/upload-video/\")\nasync def upload_video(file: UploadFile = File(...)):\n    vid = str(uuid4())  \n    file_location = f\"app/uploads/{file.filename}\"\n    with open(file_location, \"wb+\") as file_object:\n        file_object.write(file.file.read())\n    # Добавление состояния видео (начальное состояние \"processing\")\n    video_state_repo.add_video_state(vid, \"processing\")",
+        "peekOfCode": "video_data_repo = VideoDataRepository(db_client)\n@router.post(\"/upload-video/\")\nasync def upload_video(file: UploadFile = File(...)):\n    # Проверка подключения к БД\n    try:\n        client = MongoClient(DATABASE_URL)\n        client.admin.command('ping')\n        print(\"MongoDB доступен\")\n    except ConnectionFailure as e:\n        print(f\"Ошибка подключения к MongoDB: {e}\")",
         "detail": "app.api.routes",
         "documentation": {}
     },
     {
-        "label": "celery",
+        "label": "celery_app",
         "kind": 5,
         "importPath": "app.config.celery_config",
         "description": "app.config.celery_config",
-        "peekOfCode": "celery = Celery(\n    \"ml\",\n    broker=CELERY_URL\n)\n# Load tasks\ncelery.autodiscover_tasks([\"app.workers.task_queue\"])",
+        "peekOfCode": "celery_app = Celery(\n    'app',\n    broker='amqp://guest:guest@localhost:5672//',  # Подключение к RabbitMQ через localhost\n    backend='redis://localhost:6379/0',  # Подключение к Redis через localhost\n)\n# Конфигурация задач Celery\ncelery_app.conf.update(\n    task_routes={\n        'app.tasks.*': {'queue': 'default'},\n    },",
         "detail": "app.config.celery_config",
         "documentation": {}
     },
@@ -237,7 +308,7 @@
         "kind": 5,
         "importPath": "app.config.config",
         "description": "app.config.config",
-        "peekOfCode": "env = Env()\nDATABASE_URL = env.str(\n    'DB_URL',\n    default=\"mongodb://qioto:qwerty@mongo:27017/\"\n)\nCELERY_URL = env.str(\n    \"CELERY_URL\",\n    default=\"pyamqp://guest:guest@localhost//\"\n)\nUPLOAD_PATH = env.str(",
+        "peekOfCode": "env = Env()\nDATABASE_URL = env.str(\n    'DB_URL',\n    default=\"mongodb://qioto:qwerty@localhost:27017/\"\n)\nCELERY_URL = env.str(\n    \"CELERY_URL\",\n    default=\"pyamqp://guest:guest@localhost//\"\n)\nUPLOAD_PATH = env.str(",
         "detail": "app.config.config",
         "documentation": {}
     },
@@ -246,7 +317,7 @@
         "kind": 5,
         "importPath": "app.config.config",
         "description": "app.config.config",
-        "peekOfCode": "DATABASE_URL = env.str(\n    'DB_URL',\n    default=\"mongodb://qioto:qwerty@mongo:27017/\"\n)\nCELERY_URL = env.str(\n    \"CELERY_URL\",\n    default=\"pyamqp://guest:guest@localhost//\"\n)\nUPLOAD_PATH = env.str(\n    \"UPLOAD_PATH\",",
+        "peekOfCode": "DATABASE_URL = env.str(\n    'DB_URL',\n    default=\"mongodb://qioto:qwerty@localhost:27017/\"\n)\nCELERY_URL = env.str(\n    \"CELERY_URL\",\n    default=\"pyamqp://guest:guest@localhost//\"\n)\nUPLOAD_PATH = env.str(\n    \"UPLOAD_PATH\",",
         "detail": "app.config.config",
         "documentation": {}
     },
@@ -296,12 +367,21 @@
         "documentation": {}
     },
     {
-        "label": "ml_template",
-        "kind": 2,
+        "label": "ML",
+        "kind": 6,
         "importPath": "app.ml.ml",
         "description": "app.ml.ml",
-        "peekOfCode": "def ml_template(_id: str, url: str) -> tuple:\n    data = [\n        ['ID', 'Name', 'Age'],\n        [1, 'John', 28],\n        [2, 'Jane', 22]\n    ]\n    output = io.StringIO()\n    csv_writer = csv.writer(output)\n    csv_writer.writerows(data)\n    csv_content = output.getvalue()",
+        "peekOfCode": "class ML:\n    def __init__(self, _id, url):\n        self._id = _id\n        self.url = url\n    # TODO: Change to ML\n    def ml_template(self) -> tuple:\n        data = [\n            ['ID', 'Name', 'Age'],\n            [1, 'John', 28],\n            [2, 'Jane', 22]",
         "detail": "app.ml.ml",
+        "documentation": {}
+    },
+    {
+        "label": "process_video",
+        "kind": 2,
+        "importPath": "app.tasks.tasks",
+        "description": "app.tasks.tasks",
+        "peekOfCode": "def process_video(file_location: str, vid: str):\n    # ML init\n    ml_model = ML(vid, file_location)\n    video_id, csv_data = ml_model.ml_template()\n    # save csv to db\n    video_data_repo.add_video_data(video_id, csv_data)\n    # update state\n    video_state_repo.update_video_state(video_id, \"completed\")",
+        "detail": "app.tasks.tasks",
         "documentation": {}
     },
     {
@@ -318,16 +398,7 @@
         "kind": 5,
         "importPath": "app.main",
         "description": "app.main",
-        "peekOfCode": "app = FastAPI()\n# TODO: Change in prod\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],  \n    allow_credentials=True,\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"]\n)\nmongo_client = MongoDBClient(uri=DATABASE_URL, db_name=\"video_db\")",
-        "detail": "app.main",
-        "documentation": {}
-    },
-    {
-        "label": "mongo_client",
-        "kind": 5,
-        "importPath": "app.main",
-        "description": "app.main",
-        "peekOfCode": "mongo_client = MongoDBClient(uri=DATABASE_URL, db_name=\"video_db\")\napp.include_router(routes.router)\n@app.get(\"/\")\ndef read_root():\n    return {\"message\": \"Backend is running!\"}",
+        "peekOfCode": "app = FastAPI()\n# TODO: Change in prod\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],  \n    allow_credentials=True,\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"]\n)\napp.include_router(routes.router)",
         "detail": "app.main",
         "documentation": {}
     }

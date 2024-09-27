@@ -2,23 +2,34 @@ from fastapi import APIRouter, UploadFile, File, HTTPException
 from uuid import uuid4
 from app.database import VideoStateRepository, VideoDataRepository
 from app.database.mongo import MongoDBClient
+from app.config import DATABASE_URL, UPLOAD_PATH
+from pymongo import MongoClient
+from pymongo.errors import ConnectionFailure
 
 router = APIRouter()
 
 # DB init
-db_client = MongoDBClient()
+db_client = MongoDBClient(uri=DATABASE_URL, db_name="video_db")
 video_state_repo = VideoStateRepository(db_client)
 video_data_repo = VideoDataRepository(db_client)
 
-#upload video
+
 @router.post("/upload-video/")
 async def upload_video(file: UploadFile = File(...)):
-    vid = str(uuid4())  
+    # Проверка подключения к БД
+    try:
+        client = MongoClient(DATABASE_URL)
+        client.admin.command('ping')
+        print("MongoDB доступен")
+    except ConnectionFailure as e:
+        print(f"Ошибка подключения к MongoDB: {e}")
+
+    vid = str(uuid4())
+    file_location = f"{UPLOAD_PATH}/{file.filename}"
     
-    file_location = f"app/uploads/{file.filename}"
     with open(file_location, "wb+") as file_object:
         file_object.write(file.file.read())
-    
+
     # Добавление состояния видео (начальное состояние "processing")
     video_state_repo.add_video_state(vid, "processing")
     
@@ -26,6 +37,7 @@ async def upload_video(file: UploadFile = File(...)):
     # process_video.delay(file_location, vid)
     
     return {"message": "Видео успешно загружено, началась обработка.", "vid": vid}
+
 
 
 #get result by id
