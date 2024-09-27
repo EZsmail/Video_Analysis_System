@@ -36,6 +36,35 @@ document.getElementById('uploadForm').addEventListener('submit', async (e) => {
     }
 });
 
+/*obrabotchik dlya knopki poiska po id video*/
+document.getElementById('checkIdButton').addEventListener('click', async () => {
+    const videoId = document.getElementById('videoIdInput').value;
+
+    if (videoId) {
+        try {
+            const response = await fetch(`http://localhost:8000/check-video-id/${videoId}/`);
+
+            if (!response.ok) {
+                throw new Error('Video ID does not exist');
+            }
+
+            const result = await response.json();
+            // Предполагается, что сервер вернет информацию о видео
+            document.getElementById('idResult').innerHTML = `
+                <p>Video ID: ${result.id}</p>
+                <p>Title: ${result.title}</p>
+                <p>Description: ${result.description}</p>
+            `;
+        } catch (error) {
+            console.error('Error:', error);
+            document.getElementById('idResult').innerHTML = '<p>Video ID does not exist.</p>';
+        }
+    } else {
+        alert('Please enter a video ID');
+    }
+});
+
+
 // Function to parse and display CSV as a table
 function displayCSV(csv) {
     const rows = csv.split('\n').filter(row => row.trim() !== '');

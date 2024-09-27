@@ -8,7 +8,7 @@
 /* Body and container styles */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f4f4f9;
+    background-color: #f4f9f5;
     color: #333;
     display: flex;
     justify-content: center;
@@ -17,26 +17,43 @@ body {
     margin: 0;
 }
 
+#backgroundGif {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1; /* Помещает GIF под остальными элементами */
+    transform: translate(-50%, -50%);
+    object-fit: cover; /* Обеспечивает обрезку по размеру экрана */
+}
+
+
 .container {
     text-align: center;
-    background-color: #fff;
+    background-color: rgba(66, 88, 65, 0.588); /* Полупрозрачный белый фон */
+    backdrop-filter: blur(5px); /* Эффект размытия фона */
     padding: 2rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    max-width: 500px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 60px;
+    max-width: 700px !important;
     width: 100%;
+    position: relative; /* Для наложения других элементов */
+    z-index: 1; /* Обеспечивает, чтобы контейнер был выше GIF */
 }
 
 h1 {
     font-size: 2rem;
     margin-bottom: 1rem;
-    color: #4a90e2;
+    color: #94ab99;
 }
 
 p {
     font-size: 1rem;
     margin-bottom: 2rem;
-    color: #666;
+    color: #a9bc86;
 }
 
 /* Form styles */
@@ -44,6 +61,59 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+/*poisk po id*/
+.id-check {
+    font-family: 'Arial', sans-serif;
+    margin: 2rem 0; /* Увеличиваем отступы сверху и снизу */
+    color: #94ab99;
+    display: flex; /* Используем flexbox для выравнивания */
+    flex-direction: column; /* Вертикальное расположение элементов */
+    align-items: center; /* Центрируем элементы по горизонтали */
+}
+
+.input-container {
+    display: flex; /* Включаем flexbox */
+    align-items: stretch; /* Растягиваем элементы по высоте */
+    gap: 0.2rem; /* Отступ между элементами */
+}
+
+#videoIdInput {
+    flex: 1;
+    height: 48px; /* Задаем высоту, если нужно */
+    width: 100%; /* Занимает всю ширину родительского контейнера */
+    background-color: #333; /* Темный фон */
+    color: #fff; /* Светлый текст */
+    max-width: 400px; /* Ограничение максимальной ширины */
+    padding: 0.75rem; /* Внутренние отступы для удобства ввода */
+    border: 3px solid #7c604d;; /* Цвет рамки */
+    border-radius: 10px; /* Закругление углов */
+    font-size: 1rem; /* Размер шрифта */
+    transition: border-color 0.2s; /* Плавный переход цвета рамки */
+}
+
+#videoIdInput:focus {
+    border-color: #48372c; /* Цвет рамки при фокусе */
+    outline: none; /* Убираем стандартный обвод */
+}
+
+.check_id_button {
+    background-color: #7c604d;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    align-items: center; /* Вертикальное выравнивание */
+    justify-content: center; /* Горизонтальное выравнивание */
+    height: 100%; /* Растягиваем кнопку на всю высоту контейнера */
+}
+
+.check_id_button:hover {
+    background-color: #48372c;
 }
 
 .file-label {
@@ -62,17 +132,20 @@ p {
 }
 
 .file-label .file-custom {
-    background-color: #4a90e2;
+    background-color: #30585a;
     color: #fff;
-    padding: 0.75rem 2rem;
-    border-radius: 5px;
+    padding: 0.75rem 0.75rem;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 1rem;
     transition: background-color 0.3s ease;
+    display: flex; /* Используем flexbox */
+    align-items: center; /* Вертикальное выравнивание */
+    justify-content: center; /* Горизонтальное выравнивание */
 }
 
 .file-label:hover .file-custom {
-    background-color: #357abd;
+    background-color: #1b3234;
 }
 
 .file-upload-space {
@@ -80,18 +153,21 @@ p {
 }
 
 .upload-button {
-    background-color: #4a90e2;
+    background-color: #7c604d;
     color: #fff;
     padding: 0.75rem 2rem;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
+    font-size: 1.5rem;
+    transition: background-color 0.8s ease;
+    display: flex; /* Используем flexbox */
+    align-items: center; /* Вертикальное выравнивание */
+    justify-content: center; /* Горизонтальное выравнивание */
 }
 
 .upload-button:hover {
-    background-color: #357abd;
+    background-color: #48372c;
 }
 
 /* Result message */
@@ -102,7 +178,7 @@ p {
 }
 
 .result-message a {
-    color: #4a90e2;
+    color: #92567b;
     text-decoration: none;
 }
 
@@ -135,7 +211,7 @@ footer {
 }
 
 .csv-table th {
-    background-color: #4a90e2;
+    background-color: #92567b;
     color: #ffffff;
     text-transform: uppercase;
 }
@@ -149,6 +225,6 @@ footer {
 }
 
 .csv-table tr:last-of-type {
-    border-bottom: 2px solid #4a90e2;
+    border-bottom: 2px solid #92567b;
 }
 
