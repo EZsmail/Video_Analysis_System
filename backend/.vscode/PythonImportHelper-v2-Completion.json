@@ -24,7 +24,7 @@
         "documentation": {}
     },
     {
-        "label": "FastAPI",
+        "label": "HTTPException",
         "importPath": "fastapi",
         "description": "fastapi",
         "isExtraImport": true,
@@ -32,27 +32,11 @@
         "documentation": {}
     },
     {
-        "label": "process_video",
-        "importPath": "app.workers.task_queue",
-        "description": "app.workers.task_queue",
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
         "isExtraImport": true,
-        "detail": "app.workers.task_queue",
-        "documentation": {}
-    },
-    {
-        "label": "ml_service",
-        "importPath": "app.services",
-        "description": "app.services",
-        "isExtraImport": true,
-        "detail": "app.services",
-        "documentation": {}
-    },
-    {
-        "label": "ml_service",
-        "importPath": "app.services",
-        "description": "app.services",
-        "isExtraImport": true,
-        "detail": "app.services",
+        "detail": "fastapi",
         "documentation": {}
     },
     {
@@ -64,11 +48,100 @@
         "documentation": {}
     },
     {
+        "label": "VideoStateRepository",
+        "importPath": "app.database",
+        "description": "app.database",
+        "isExtraImport": true,
+        "detail": "app.database",
+        "documentation": {}
+    },
+    {
+        "label": "VideoDataRepository",
+        "importPath": "app.database",
+        "description": "app.database",
+        "isExtraImport": true,
+        "detail": "app.database",
+        "documentation": {}
+    },
+    {
+        "label": "MongoDBClient",
+        "importPath": "app.database",
+        "description": "app.database",
+        "isExtraImport": true,
+        "detail": "app.database",
+        "documentation": {}
+    },
+    {
+        "label": "MongoDBClient",
+        "importPath": "app.database.mongo",
+        "description": "app.database.mongo",
+        "isExtraImport": true,
+        "detail": "app.database.mongo",
+        "documentation": {}
+    },
+    {
+        "label": "MongoDBClient",
+        "importPath": "app.database.mongo",
+        "description": "app.database.mongo",
+        "isExtraImport": true,
+        "detail": "app.database.mongo",
+        "documentation": {}
+    },
+    {
+        "label": "Celery",
+        "importPath": "celery",
+        "description": "celery",
+        "isExtraImport": true,
+        "detail": "celery",
+        "documentation": {}
+    },
+    {
+        "label": "CELERY_URL",
+        "importPath": "app.config.config",
+        "description": "app.config.config",
+        "isExtraImport": true,
+        "detail": "app.config.config",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "Env",
+        "importPath": "envparse",
+        "description": "envparse",
+        "isExtraImport": true,
+        "detail": "envparse",
+        "documentation": {}
+    },
+    {
         "label": "MongoClient",
         "importPath": "pymongo",
         "description": "pymongo",
         "isExtraImport": true,
         "detail": "pymongo",
+        "documentation": {}
+    },
+    {
+        "label": "DuplicateKeyError",
+        "importPath": "pymongo.errors",
+        "description": "pymongo.errors",
+        "isExtraImport": true,
+        "detail": "pymongo.errors",
+        "documentation": {}
+    },
+    {
+        "label": "PyMongoError",
+        "importPath": "pymongo.errors",
+        "description": "pymongo.errors",
+        "isExtraImport": true,
+        "detail": "pymongo.errors",
         "documentation": {}
     },
     {
@@ -99,55 +172,6 @@
         "documentation": {}
     },
     {
-        "label": "BaseModel",
-        "importPath": "pydantic",
-        "description": "pydantic",
-        "isExtraImport": true,
-        "detail": "pydantic",
-        "documentation": {}
-    },
-    {
-        "label": "shared_task",
-        "importPath": "celery",
-        "description": "celery",
-        "isExtraImport": true,
-        "detail": "celery",
-        "documentation": {}
-    },
-    {
-        "label": "Celery",
-        "importPath": "celery",
-        "description": "celery",
-        "isExtraImport": true,
-        "detail": "celery",
-        "documentation": {}
-    },
-    {
-        "label": "CELERY_URL",
-        "importPath": "config",
-        "description": "config",
-        "isExtraImport": true,
-        "detail": "config",
-        "documentation": {}
-    },
-    {
-        "label": "os",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "os",
-        "description": "os",
-        "detail": "os",
-        "documentation": {}
-    },
-    {
-        "label": "Env",
-        "importPath": "envparse",
-        "description": "envparse",
-        "isExtraImport": true,
-        "detail": "envparse",
-        "documentation": {}
-    },
-    {
         "label": "CORSMiddleware",
         "importPath": "fastapi.middleware.cors",
         "description": "fastapi.middleware.cors",
@@ -168,17 +192,80 @@
         "kind": 5,
         "importPath": "app.api.routes",
         "description": "app.api.routes",
-        "peekOfCode": "router = APIRouter()\n# Load Video From User\n@router.post(\"/upload-video/\")\nasync def upload_video(file: UploadFile = File(...)):\n    vid = uuid4()\n    file_location = f\"app/uploads/{file.filename}\"\n    with open(file_location, \"wb+\") as file_object:\n        file_object.write(file.file.read())\n    # TODO: Send task to Selery\n    # process_video.delay(file_location, vid)",
+        "peekOfCode": "router = APIRouter()\n# DB init\ndb_client = MongoDBClient()\nvideo_state_repo = VideoStateRepository(db_client)\nvideo_data_repo = VideoDataRepository(db_client)\n#upload video\n@router.post(\"/upload-video/\")\nasync def upload_video(file: UploadFile = File(...)):\n    vid = str(uuid4())  \n    file_location = f\"app/uploads/{file.filename}\"",
         "detail": "app.api.routes",
         "documentation": {}
     },
     {
-        "label": "videos_collection",
+        "label": "db_client",
         "kind": 5,
         "importPath": "app.api.routes",
         "description": "app.api.routes",
-        "peekOfCode": "videos_collection = {}",
+        "peekOfCode": "db_client = MongoDBClient()\nvideo_state_repo = VideoStateRepository(db_client)\nvideo_data_repo = VideoDataRepository(db_client)\n#upload video\n@router.post(\"/upload-video/\")\nasync def upload_video(file: UploadFile = File(...)):\n    vid = str(uuid4())  \n    file_location = f\"app/uploads/{file.filename}\"\n    with open(file_location, \"wb+\") as file_object:\n        file_object.write(file.file.read())",
         "detail": "app.api.routes",
+        "documentation": {}
+    },
+    {
+        "label": "video_state_repo",
+        "kind": 5,
+        "importPath": "app.api.routes",
+        "description": "app.api.routes",
+        "peekOfCode": "video_state_repo = VideoStateRepository(db_client)\nvideo_data_repo = VideoDataRepository(db_client)\n#upload video\n@router.post(\"/upload-video/\")\nasync def upload_video(file: UploadFile = File(...)):\n    vid = str(uuid4())  \n    file_location = f\"app/uploads/{file.filename}\"\n    with open(file_location, \"wb+\") as file_object:\n        file_object.write(file.file.read())\n    # Добавление состояния видео (начальное состояние \"processing\")",
+        "detail": "app.api.routes",
+        "documentation": {}
+    },
+    {
+        "label": "video_data_repo",
+        "kind": 5,
+        "importPath": "app.api.routes",
+        "description": "app.api.routes",
+        "peekOfCode": "video_data_repo = VideoDataRepository(db_client)\n#upload video\n@router.post(\"/upload-video/\")\nasync def upload_video(file: UploadFile = File(...)):\n    vid = str(uuid4())  \n    file_location = f\"app/uploads/{file.filename}\"\n    with open(file_location, \"wb+\") as file_object:\n        file_object.write(file.file.read())\n    # Добавление состояния видео (начальное состояние \"processing\")\n    video_state_repo.add_video_state(vid, \"processing\")",
+        "detail": "app.api.routes",
+        "documentation": {}
+    },
+    {
+        "label": "celery",
+        "kind": 5,
+        "importPath": "app.config.celery_config",
+        "description": "app.config.celery_config",
+        "peekOfCode": "celery = Celery(\n    \"ml\",\n    broker=CELERY_URL\n)\n# Load tasks\ncelery.autodiscover_tasks([\"app.workers.task_queue\"])",
+        "detail": "app.config.celery_config",
+        "documentation": {}
+    },
+    {
+        "label": "env",
+        "kind": 5,
+        "importPath": "app.config.config",
+        "description": "app.config.config",
+        "peekOfCode": "env = Env()\nDATABASE_URL = env.str(\n    'DB_URL',\n    default=\"mongodb://qioto:qwerty@mongo:27017/\"\n)\nCELERY_URL = env.str(\n    \"CELERY_URL\",\n    default=\"pyamqp://guest:guest@localhost//\"\n)\nUPLOAD_PATH = env.str(",
+        "detail": "app.config.config",
+        "documentation": {}
+    },
+    {
+        "label": "DATABASE_URL",
+        "kind": 5,
+        "importPath": "app.config.config",
+        "description": "app.config.config",
+        "peekOfCode": "DATABASE_URL = env.str(\n    'DB_URL',\n    default=\"mongodb://qioto:qwerty@mongo:27017/\"\n)\nCELERY_URL = env.str(\n    \"CELERY_URL\",\n    default=\"pyamqp://guest:guest@localhost//\"\n)\nUPLOAD_PATH = env.str(\n    \"UPLOAD_PATH\",",
+        "detail": "app.config.config",
+        "documentation": {}
+    },
+    {
+        "label": "CELERY_URL",
+        "kind": 5,
+        "importPath": "app.config.config",
+        "description": "app.config.config",
+        "peekOfCode": "CELERY_URL = env.str(\n    \"CELERY_URL\",\n    default=\"pyamqp://guest:guest@localhost//\"\n)\nUPLOAD_PATH = env.str(\n    \"UPLOAD_PATH\",\n    default=\"../data/upload/\"\n)",
+        "detail": "app.config.config",
+        "documentation": {}
+    },
+    {
+        "label": "UPLOAD_PATH",
+        "kind": 5,
+        "importPath": "app.config.config",
+        "description": "app.config.config",
+        "peekOfCode": "UPLOAD_PATH = env.str(\n    \"UPLOAD_PATH\",\n    default=\"../data/upload/\"\n)",
+        "detail": "app.config.config",
         "documentation": {}
     },
     {
@@ -191,93 +278,30 @@
         "documentation": {}
     },
     {
+        "label": "VideoStateRepository",
+        "kind": 6,
+        "importPath": "app.database.repositories",
+        "description": "app.database.repositories",
+        "peekOfCode": "class VideoStateRepository:\n    def __init__(self, db_client: MongoDBClient, collection_name: str = \"video_states\"):\n        self.collection = db_client.get_collection(collection_name)\n    def add_video_state(self, video_id: str, state: str):\n        document = {\"_id\": video_id, \"state\": state}\n        try:\n            self.collection.insert_one(document)\n        except DuplicateKeyError:\n            raise ValueError(f\"Video state with ID '{video_id}' already exists.\")\n        except PyMongoError as e:",
+        "detail": "app.database.repositories",
+        "documentation": {}
+    },
+    {
+        "label": "VideoDataRepository",
+        "kind": 6,
+        "importPath": "app.database.repositories",
+        "description": "app.database.repositories",
+        "peekOfCode": "class VideoDataRepository:\n    def __init__(self, db_client: MongoDBClient, collection_name: str = \"video_data\"):\n        self.collection = db_client.get_collection(collection_name)\n    def add_video_data(self, video_id: str, csv_data: str):\n        document = {\"_id\": video_id, \"csv\": csv_data}\n        try:\n            self.collection.insert_one(document)\n        except DuplicateKeyError:\n            raise ValueError(f\"Video data with ID '{video_id}' already exists.\")\n        except PyMongoError as e:",
+        "detail": "app.database.repositories",
+        "documentation": {}
+    },
+    {
         "label": "ml_template",
         "kind": 2,
-        "importPath": "app.ml.mainMl",
-        "description": "app.ml.mainMl",
+        "importPath": "app.ml.ml",
+        "description": "app.ml.ml",
         "peekOfCode": "def ml_template(_id: str, url: str) -> tuple:\n    data = [\n        ['ID', 'Name', 'Age'],\n        [1, 'John', 28],\n        [2, 'Jane', 22]\n    ]\n    output = io.StringIO()\n    csv_writer = csv.writer(output)\n    csv_writer.writerows(data)\n    csv_content = output.getvalue()",
-        "detail": "app.ml.mainMl",
-        "documentation": {}
-    },
-    {
-        "label": "VideoModel",
-        "kind": 6,
-        "importPath": "app.models.video",
-        "description": "app.models.video",
-        "peekOfCode": "class VideoModel(BaseModel):\n    video_id: str\n    file_path: str\n    status: str\n    result: dict = None",
-        "detail": "app.models.video",
-        "documentation": {}
-    },
-    {
-        "label": "save_results",
-        "kind": 2,
-        "importPath": "app.services.ml_service",
-        "description": "app.services.ml_service",
-        "peekOfCode": "def save_results(video_id: str, data: dict): \n    # TODO: add save to db\n    results_db[video_id] = data\n#get data\ndef get_results(video_id: str):\n    return results_db.get(video_id)\n# init db\nresults_db = {}",
-        "detail": "app.services.ml_service",
-        "documentation": {}
-    },
-    {
-        "label": "get_results",
-        "kind": 2,
-        "importPath": "app.services.ml_service",
-        "description": "app.services.ml_service",
-        "peekOfCode": "def get_results(video_id: str):\n    return results_db.get(video_id)\n# init db\nresults_db = {}",
-        "detail": "app.services.ml_service",
-        "documentation": {}
-    },
-    {
-        "label": "results_db",
-        "kind": 5,
-        "importPath": "app.services.ml_service",
-        "description": "app.services.ml_service",
-        "peekOfCode": "results_db = {}",
-        "detail": "app.services.ml_service",
-        "documentation": {}
-    },
-    {
-        "label": "process_video",
-        "kind": 2,
-        "importPath": "app.workers.task_queue",
-        "description": "app.workers.task_queue",
-        "peekOfCode": "def process_video(file_path: str):\n    # TODO: Add ML \n    time.sleep(10) #TODO: Remove\n    video_id = \"video_123\"  \n    # TODO: Change to db\n    ml_service.save_results(video_id, {\"csv_data\": \"example,data\"})\n    return video_id",
-        "detail": "app.workers.task_queue",
-        "documentation": {}
-    },
-    {
-        "label": "celery",
-        "kind": 5,
-        "importPath": "app.celery_config",
-        "description": "app.celery_config",
-        "peekOfCode": "celery = Celery(\n    \"ml\",\n    broker=CELERY_URL\n)\n# Load tasks\ncelery.autodiscover_tasks([\"app.workers.task_queue\"])",
-        "detail": "app.celery_config",
-        "documentation": {}
-    },
-    {
-        "label": "env",
-        "kind": 5,
-        "importPath": "app.config",
-        "description": "app.config",
-        "peekOfCode": "env = Env()\nDATABASE_URL = env.str(\n    'MONGOURL',\n    default=\"postgresql+asyncpg://admin:root@0.0.0.0:5438/postgres\"\n)\nCELERY_URL = env.str(\n    \"CELERY_URL\",\n    default=\"pyamqp://guest:guest@localhost//\"\n)",
-        "detail": "app.config",
-        "documentation": {}
-    },
-    {
-        "label": "DATABASE_URL",
-        "kind": 5,
-        "importPath": "app.config",
-        "description": "app.config",
-        "peekOfCode": "DATABASE_URL = env.str(\n    'MONGOURL',\n    default=\"postgresql+asyncpg://admin:root@0.0.0.0:5438/postgres\"\n)\nCELERY_URL = env.str(\n    \"CELERY_URL\",\n    default=\"pyamqp://guest:guest@localhost//\"\n)",
-        "detail": "app.config",
-        "documentation": {}
-    },
-    {
-        "label": "CELERY_URL",
-        "kind": 5,
-        "importPath": "app.config",
-        "description": "app.config",
-        "peekOfCode": "CELERY_URL = env.str(\n    \"CELERY_URL\",\n    default=\"pyamqp://guest:guest@localhost//\"\n)",
-        "detail": "app.config",
+        "detail": "app.ml.ml",
         "documentation": {}
     },
     {
@@ -294,7 +318,16 @@
         "kind": 5,
         "importPath": "app.main",
         "description": "app.main",
-        "peekOfCode": "app = FastAPI()\n# TODO: Change in prod\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],  \n    allow_credentials=True,\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"],\n)\n# Подключаем маршруты",
+        "peekOfCode": "app = FastAPI()\n# TODO: Change in prod\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],  \n    allow_credentials=True,\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"]\n)\nmongo_client = MongoDBClient(uri=DATABASE_URL, db_name=\"video_db\")",
+        "detail": "app.main",
+        "documentation": {}
+    },
+    {
+        "label": "mongo_client",
+        "kind": 5,
+        "importPath": "app.main",
+        "description": "app.main",
+        "peekOfCode": "mongo_client = MongoDBClient(uri=DATABASE_URL, db_name=\"video_db\")\napp.include_router(routes.router)\n@app.get(\"/\")\ndef read_root():\n    return {\"message\": \"Backend is running!\"}",
         "detail": "app.main",
         "documentation": {}
     }

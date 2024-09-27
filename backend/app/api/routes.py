@@ -1,50 +1,55 @@
-from fastapi import APIRouter, UploadFile, File
-from app.workers.task_queue import process_video
-from app.services import ml_service
+from fastapi import APIRouter, UploadFile, File, HTTPException
 from uuid import uuid4
+from app.database import VideoStateRepository, VideoDataRepository
+from app.database.mongo import MongoDBClient
 
 router = APIRouter()
 
-# Load Video From User
+# DB init
+db_client = MongoDBClient()
+video_state_repo = VideoStateRepository(db_client)
+video_data_repo = VideoDataRepository(db_client)
+
+#upload video
 @router.post("/upload-video/")
 async def upload_video(file: UploadFile = File(...)):
-    
-    vid = uuid4()
+    vid = str(uuid4())  
     
     file_location = f"app/uploads/{file.filename}"
     with open(file_location, "wb+") as file_object:
         file_object.write(file.file.read())
     
-    # TODO: Send task to Selery
+    # Добавление состояния видео (начальное состояние "processing")
+    video_state_repo.add_video_state(vid, "processing")
+    
+    # TODO: Отправить задачу в Celery
     # process_video.delay(file_location, vid)
     
-    return {"message": "Video uploaded successfully, processing started.", "vid": vid}
+    return {"message": "Видео успешно загружено, началась обработка.", "vid": vid}
 
 
-# Get Result Handler
+#get result by id
 @router.get("/results/{vid}")
 async def get_results(vid: str):
-    result = ml_service.get_results(vid)
-    if result:
-        return {"status": "completed", "data": result}
-    else:
-        return {"status": "processing"}
+    try:
+        result = video_data_repo.get_video_data(vid)
+        return {"status": "completed", "data": result["csv"]}
+    except ValueError:
+        raise HTTPException(status_code=404, detail="Результаты обработки не найдены.")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Ошибка получения данных: {str(e)}")
 
 
-    
-# Get Status Video
+#get video status
 @router.get("/video-status/{vid}")
 async def get_video_status(vid: str):
-
-    video = videos_collection.find_one({"video_id": vid})
-    
-    if not video:
-        return {"error": "Video not found"}
-    
-    return {
-        "video_id": vid,
-        "status": video.get("status"),
-        "processing_results": video.get("processing_results", None)
-    }
-    
-videos_collection = {}
+    try:
+        video_state = video_state_repo.get_video_state(vid)
+        return {
+            "video_id": vid,
+            "status": video_state["state"]
+        }
+    except ValueError:
+        raise HTTPException(status_code=404, detail="Видео не найдено.")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Ошибка получения статуса видео: {str(e)}")

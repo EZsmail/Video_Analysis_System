@@ -1,5 +1,5 @@
 from celery import Celery
-from config import CELERY_URL
+from app.config.config import CELERY_URL
 import os
 
 

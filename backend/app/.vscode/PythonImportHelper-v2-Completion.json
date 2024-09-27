@@ -64,11 +64,51 @@
         "documentation": {}
     },
     {
-        "label": "BaseModel",
-        "importPath": "pydantic",
-        "description": "pydantic",
+        "label": "MongoDBClient",
+        "importPath": "database.mongo",
+        "description": "database.mongo",
         "isExtraImport": true,
-        "detail": "pydantic",
+        "detail": "database.mongo",
+        "documentation": {}
+    },
+    {
+        "label": "MongoDBClient",
+        "importPath": "database.mongo",
+        "description": "database.mongo",
+        "isExtraImport": true,
+        "detail": "database.mongo",
+        "documentation": {}
+    },
+    {
+        "label": "VideoStateRepository",
+        "importPath": "database.repositories",
+        "description": "database.repositories",
+        "isExtraImport": true,
+        "detail": "database.repositories",
+        "documentation": {}
+    },
+    {
+        "label": "VideoDataRepository",
+        "importPath": "database.repositories",
+        "description": "database.repositories",
+        "isExtraImport": true,
+        "detail": "database.repositories",
+        "documentation": {}
+    },
+    {
+        "label": "MongoClient",
+        "importPath": "pymongo",
+        "description": "pymongo",
+        "isExtraImport": true,
+        "detail": "pymongo",
+        "documentation": {}
+    },
+    {
+        "label": "MongoDBClient",
+        "importPath": "app.database.mongo",
+        "description": "app.database.mongo",
+        "isExtraImport": true,
+        "detail": "app.database.mongo",
         "documentation": {}
     },
     {
@@ -78,6 +118,32 @@
         "importPath": "time",
         "description": "time",
         "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "csv",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "csv",
+        "description": "csv",
+        "detail": "csv",
+        "documentation": {}
+    },
+    {
+        "label": "io",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "io",
+        "description": "io",
+        "detail": "io",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
         "documentation": {}
     },
     {
@@ -98,6 +164,14 @@
     },
     {
         "label": "CELERY_URL",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "DATABASE_URL",
         "importPath": "config",
         "description": "config",
         "isExtraImport": true,
@@ -153,6 +227,42 @@
         "description": "api.routes",
         "peekOfCode": "videos_collection = {}",
         "detail": "api.routes",
+        "documentation": {}
+    },
+    {
+        "label": "MongoDBClient",
+        "kind": 6,
+        "importPath": "database.mongo",
+        "description": "database.mongo",
+        "peekOfCode": "class MongoDBClient:\n    def __init__(self, uri: str, db_name: str):\n        self.client = MongoClient(uri)\n        self.db = self.client[db_name]\n    def get_collection(self, collection_name: str):\n        return self.db[collection_name]",
+        "detail": "database.mongo",
+        "documentation": {}
+    },
+    {
+        "label": "VideoStateRepository",
+        "kind": 6,
+        "importPath": "database.repositories",
+        "description": "database.repositories",
+        "peekOfCode": "class VideoStateRepository:\n    def __init__(self, db_client: MongoDBClient, collection_name: str = \"video_states\"):\n        self.collection = db_client.get_collection(collection_name)\n    def add_video_state(self, video_id: str, state: str):\n        document = {\"_id\": video_id, \"state\": state}\n        self.collection.insert_one(document)\n    def get_video_state(self, video_id: str) -> dict:\n        return self.collection.find_one({\"_id\": video_id})\nclass VideoDataRepository:\n    def __init__(self, db_client: MongoDBClient, collection_name: str = \"video_data\"):",
+        "detail": "database.repositories",
+        "documentation": {}
+    },
+    {
+        "label": "VideoDataRepository",
+        "kind": 6,
+        "importPath": "database.repositories",
+        "description": "database.repositories",
+        "peekOfCode": "class VideoDataRepository:\n    def __init__(self, db_client: MongoDBClient, collection_name: str = \"video_data\"):\n        self.collection = db_client.get_collection(collection_name)\n    def add_video_data(self, video_id: str, csv_data: str):\n        document = {\"_id\": video_id, \"csv\": csv_data}\n        self.collection.insert_one(document)\n    def get_video_data(self, video_id: str) -> dict:\n        return self.collection.find_one({\"_id\": video_id})",
+        "detail": "database.repositories",
+        "documentation": {}
+    },
+    {
+        "label": "ml_template",
+        "kind": 2,
+        "importPath": "ml.ml",
+        "description": "ml.ml",
+        "peekOfCode": "def ml_template(_id: str, url: str) -> tuple:\n    data = [\n        ['ID', 'Name', 'Age'],\n        [1, 'John', 28],\n        [2, 'Jane', 22]\n    ]\n    output = io.StringIO()\n    csv_writer = csv.writer(output)\n    csv_writer.writerows(data)\n    csv_content = output.getvalue()",
+        "detail": "ml.ml",
         "documentation": {}
     },
     {
@@ -214,7 +324,7 @@
         "kind": 5,
         "importPath": "config",
         "description": "config",
-        "peekOfCode": "env = Env()\nDATABASE_URL = env.str(\n    'MONGOURL',\n    default=\"postgresql+asyncpg://admin:root@0.0.0.0:5438/postgres\"\n)\nCELERY_URL = env.str(\n    \"CELERY_URL\",\n    default=\"pyamqp://guest:guest@localhost//\"\n)",
+        "peekOfCode": "env = Env()\nDATABASE_URL = env.str(\n    'DB_URL',\n    default=\"mongodb://qioto:qwerty@mongo:27017/\"\n)\nCELERY_URL = env.str(\n    \"CELERY_URL\",\n    default=\"pyamqp://guest:guest@localhost//\"\n)",
         "detail": "config",
         "documentation": {}
     },
@@ -223,7 +333,7 @@
         "kind": 5,
         "importPath": "config",
         "description": "config",
-        "peekOfCode": "DATABASE_URL = env.str(\n    'MONGOURL',\n    default=\"postgresql+asyncpg://admin:root@0.0.0.0:5438/postgres\"\n)\nCELERY_URL = env.str(\n    \"CELERY_URL\",\n    default=\"pyamqp://guest:guest@localhost//\"\n)",
+        "peekOfCode": "DATABASE_URL = env.str(\n    'DB_URL',\n    default=\"mongodb://qioto:qwerty@mongo:27017/\"\n)\nCELERY_URL = env.str(\n    \"CELERY_URL\",\n    default=\"pyamqp://guest:guest@localhost//\"\n)",
         "detail": "config",
         "documentation": {}
     },
@@ -250,7 +360,16 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI()\n# TODO: Change in prod\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],  \n    allow_credentials=True,\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"],\n)\n# Подключаем маршруты",
+        "peekOfCode": "app = FastAPI()\n# TODO: Change in prod\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],  \n    allow_credentials=True,\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"],\n)\nmongo_client = MongoDBClient(uri=DATABASE_URL, db_name=\"video_db\")",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "mongo_client",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "mongo_client = MongoDBClient(uri=DATABASE_URL, db_name=\"video_db\")\napp.include_router(routes.router)\n@app.get(\"/\")\ndef read_root():\n    return {\"message\": \"Backend is running!\"}",
         "detail": "main",
         "documentation": {}
     }

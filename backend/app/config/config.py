@@ -3,11 +3,16 @@ from envparse import Env
 env = Env()
 
 DATABASE_URL = env.str(
-    'MONGOURL',
-    default="postgresql+asyncpg://admin:root@0.0.0.0:5438/postgres"
+    'DB_URL',
+    default="mongodb://qioto:qwerty@mongo:27017/"
 )
 
 CELERY_URL = env.str(
     "CELERY_URL",
     default="pyamqp://guest:guest@localhost//"
+)
+
+UPLOAD_PATH = env.str(
+    "UPLOAD_PATH",
+    default="../data/upload/"
 )
