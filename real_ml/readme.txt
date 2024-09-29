@@ -13,3 +13,6 @@ ml сервис:
 2. Установить tesseract с официального сайт (выбрать 2 галочки для русского языка) и добавить также в path путь до папки с заходом в неё ('\'):
 Если путь до папки C:\Program Files\Tesseract-OCR, то в переменные среды добавляем C:\Program Files\Tesseract-OCR\
 3. Доустановить библиотеки, которых нет :)
+
+Доп память в репозиторий:
+https://drive.google.com/drive/folders/1KGfCYmoi4Ac1lUKhtvNCLQdmIkZ2ak7a?usp=sharing
