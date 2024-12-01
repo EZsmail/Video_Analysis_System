@@ -7,10 +7,11 @@ import (
 )
 
 type Config struct {
-	RabbitMQ `yaml:"rabbitmq"`
-	MongoDB  `yaml:"mongodb"`
-	LogPath  string `yaml:"log_path"`
-	Debug    bool   `yaml:"debug"`
+	RabbitMQ   `yaml:"rabbitmq"`
+	MongoDB    `yaml:"mongodb"`
+	PostgreSQL `yaml:"postgresql"`
+	LogPath    string `yaml:"log_path"`
+	Debug      bool   `yaml:"debug"`
 }
 
 type RabbitMQ struct {
@@ -23,6 +24,15 @@ type MongoDB struct {
 	Database         string `yaml:"database"`
 	CollectionStatus string `yaml:"collection_status"`
 	CollectionResult string `yaml:"collection_result"`
+}
+
+type PostgreSQL struct {
+	Host        string `yaml:"host"`
+	Port        int    `yaml:"port"`
+	User        string `yaml:"user"`
+	Password    string `yaml:"password"`
+	Database    string `yaml:"database"`
+	TableStatus string `yaml:"table_status"`
 }
 
 func LoadConfig(path string) (*Config, error) {
