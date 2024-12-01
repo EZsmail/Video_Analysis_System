@@ -2,55 +2,48 @@ package main
 
 import (
 	"backend-golang/internal/config"
-	"log/slog"
-	"os"
+	"backend-golang/internal/logger"
+	"backend-golang/internal/mq"
+	"backend-golang/internal/router"
+	"log"
 
-	"github.com/go-chi/chi"
-	"github.com/go-chi/chi/middleware"
+	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
-const (
-	envLocal = "local"
-	envDev   = "dev"
-	envProd  = "prod"
-)
+// const (
+// 	envDev  = "dev"
+// 	envProd = "prod"
+// )
 
 func main() {
-	cfg := config.MustLoad()
-
-	log := setupLogger(cfg.Env)
-
-	log.Info("starting server", slog.String("env", cfg.Env))
-
-	router := chi.NewRouter()
-
-	router.Use(middleware.RequestID)
-	router.Use(middleware.RealIP)
-	router.Use(middleware.Recoverer)
-	router.Use(middleware.URLFormat)
-
-	// TODO: routers
-
-	// TODO: start server
-}
-
-func setupLogger(env string) *slog.Logger {
-	var log *slog.Logger
-
-	switch env {
-	case envLocal:
-		log = slog.New(
-			slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug}),
-		)
-	case envDev:
-		log = slog.New(
-			slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelInfo}),
-		)
-	case envProd:
-		log = slog.New(
-			slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelInfo}),
-		)
+	path := "config/dev.yaml"
+	cfg, err := config.LoadConfig(path)
+	if err != nil {
+		log.Fatal(err)
 	}
 
-	return log
+	log, err := logger.InitLogger(cfg.LogPath, cfg.Debug)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	log.Debug("logger started")
+	defer log.Sync()
+
+	rabbitConn, err := mq.ConnectRabbitMQ(cfg.RabbitMQ.URL)
+	if err != nil {
+		log.Fatal("connection rabbitmq failed", zap.Error(err))
+	}
+	defer rabbitConn.Close()
+
+	r := router.SetupRouter(log, rabbitConn, cfg.Debug)
+	if !cfg.Debug {
+		gin.SetMode(gin.ReleaseMode)
+	}
+
+	log.Info("Starting server on :8080")
+	if err := r.Run(":8082"); err != nil {
+		log.Fatal("start server failed", zap.Error(err))
+	}
 }

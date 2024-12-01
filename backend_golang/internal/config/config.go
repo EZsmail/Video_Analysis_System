@@ -1,42 +1,41 @@
 package config
 
 import (
-	"log"
 	"os"
-	"time"
 
-	"github.com/ilyakaznacheev/cleanenv"
+	"gopkg.in/yaml.v3"
 )
 
 type Config struct {
-	Env         string `yaml:"env" env-default:"local"`
-	StoragePath string `yaml:"storage_path" env-required:"true"`
-	HTTPServer  `yaml:"http-server"`
+	RabbitMQ `yaml:"rabbitmq"`
+	MongoDB  `yaml:"mongodb"`
+	LogPath  string `yaml:"log_path"`
+	Debug    bool   `yaml:"debug"`
 }
 
-type HTTPServer struct {
-	Address     string        `yaml:"address" env-default:"localhost:8080"`
-	Timeout     time.Duration `yaml:"timeout" env-default:"4s"`
-	IdleTimeout time.Duration `yaml:"idle_timeout" env-default:"60s"`
-	User        string        `yaml:"user" env-required:"true"`
-	Password    string        `yaml:"password" env-required:"true" env:"HTTP_SERVER_PASSWORD"`
+type RabbitMQ struct {
+	URL       string `yaml:"url"`
+	QueueName string `yaml:"queue_name"`
 }
 
-func MustLoad() Config {
-	configPath := os.Getenv("CONFIG_PATH")
-	if configPath == "" {
-		log.Fatal("CONFIG PATH is not set")
+type MongoDB struct {
+	URL              string `yaml:"url"`
+	Database         string `yaml:"database"`
+	CollectionStatus string `yaml:"collection_status"`
+	CollectionResult string `yaml:"collection_result"`
+}
+
+func LoadConfig(path string) (*Config, error) {
+	file, err := os.ReadFile(path)
+	if err != nil {
+		return nil, err
 	}
 
-	if _, err := os.Stat(configPath); os.IsNotExist(err) {
-		log.Fatalf("Config file is not exist: %s", configPath)
+	var config Config
+	err = yaml.Unmarshal(file, &config)
+	if err != nil {
+		return nil, err
 	}
 
-	var cfg Config
-
-	if err := cleanenv.ReadConfig(configPath, &cfg); err != nil {
-		log.Fatalf("cannot read config: %s", err)
-	}
-
-	return cfg
+	return &config, nil
 }
