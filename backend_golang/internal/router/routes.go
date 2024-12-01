@@ -2,14 +2,26 @@ package router
 
 import (
 	"backend-golang/internal/middleware"
-	"backend-golang/internal/router/routes"
+	"backend-golang/internal/storage/mongo"
+	"context"
 
 	"github.com/gin-gonic/gin"
-	"github.com/streadway/amqp"
 	"go.uber.org/zap"
 )
 
-func SetupRouter(logger *zap.Logger, conn *amqp.Connection, debug bool) *gin.Engine {
+type Sender interface {
+	SendTask(string, []byte) error
+}
+
+type StatusUpdater interface {
+	InsertStatus(context.Context, string, string) error
+	GetStatus(context.Context, string) (string, error)
+}
+
+type ResultUpdater interface {
+}
+
+func SetupRouter(logger *zap.Logger, broker Sender, db *mongo.MongoDB, debug bool) *gin.Engine {
 	if !debug {
 		gin.SetMode(gin.ReleaseMode)
 	}
@@ -18,9 +30,9 @@ func SetupRouter(logger *zap.Logger, conn *amqp.Connection, debug bool) *gin.Eng
 
 	r.Use(middleware.GinLogger(logger))
 
-	routes.RegisterUploadRoutes(r, logger, conn)
-	routes.RegisterResultRoutes(r, logger)
-	routes.RegisterStatusRoutes(r, logger)
+	RegisterUploadRoutes(r, logger, broker, db)
+	RegisterStatusRoutes(r, logger, db)
+	RegisterResultRoutes(r, logger)
 
 	return r
 }

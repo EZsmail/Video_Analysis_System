@@ -6,20 +6,27 @@ import (
 	"github.com/streadway/amqp"
 )
 
-func ConnectRabbitMQ(mqUrl string) (*amqp.Connection, error) {
+type RabbitMQ struct {
+	broker *amqp.Connection
+}
+
+func ConnectRabbitMQ(mqUrl string) (*RabbitMQ, error) {
 	conn, err := amqp.Dial(mqUrl)
 	if err != nil {
-		fmt.Println(mqUrl)
 		return nil, err
 	}
 
-	return conn, nil
+	return &RabbitMQ{conn}, nil
 }
 
-func SendTask(conn *amqp.Connection, queue string, message []byte) error {
+func (conn *RabbitMQ) Close() {
+	conn.broker.Close()
+}
+
+func (conn *RabbitMQ) SendTask(queue string, message []byte) error {
 	const op = "mq.sendtask"
 
-	ch, err := conn.Channel()
+	ch, err := conn.broker.Channel()
 	if err != nil {
 		return fmt.Errorf("%s: %w", op, err)
 	}

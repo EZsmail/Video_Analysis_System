@@ -1,13 +1,12 @@
-package routes
+package router
 
 import (
-	"backend-golang/internal/mq"
+	"context"
 	"encoding/json"
 	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/streadway/amqp"
 	"go.uber.org/zap"
 )
 
@@ -16,12 +15,16 @@ type Task struct {
 	FilePath     string `json:"file_path"`
 }
 
-func RegisterUploadRoutes(r *gin.Engine, logger *zap.Logger, conn *amqp.Connection) {
+type StatusSaver interface {
+	InsertStatus(context.Context, string, string) error
+}
+
+func RegisterUploadRoutes(r *gin.Engine, logger *zap.Logger, broker Sender, db StatusSaver) {
 	r.POST("/upload", func(c *gin.Context) {
 		file, err := c.FormFile("file")
 		if err != nil {
-			logger.Error("Failed to get file from request", zap.Error(err))
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid file upload"})
+			logger.Error("Failed to get file", zap.Error(err))
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid file"})
 			return
 		}
 
@@ -34,9 +37,16 @@ func RegisterUploadRoutes(r *gin.Engine, logger *zap.Logger, conn *amqp.Connecti
 			return
 		}
 
-		task := Task{ProcessingID: processingID, FilePath: filePath}
+		// save status to mongodb
+		if err := db.InsertStatus(c.Request.Context(), processingID, "in_progress"); err != nil {
+			logger.Error("Failed to save status", zap.Error(err))
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save status"})
+			return
+		}
+
+		task := map[string]string{"processing_id": processingID, "file_path": filePath}
 		body, _ := json.Marshal(task)
-		if err := mq.SendTask(conn, "video_processing", body); err != nil {
+		if err := broker.SendTask("video_processing", body); err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to process task"})
 			return
 		}
