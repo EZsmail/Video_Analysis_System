@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../go/src/restapi/URL-Shortener"
+		}
+	],
+	"settings": {}
+}
