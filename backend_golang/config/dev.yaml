@@ -1,0 +1,12 @@
+rabbitmq:
+  url: "amqp://guest:guest@localhost:5672/"
+  queue_name: "video_processing"
+
+mongodb:
+  uri: "mongodb://localhost:27017"
+  database: "video_processing_db"
+  collection_status: "processing_status"
+  collection_results: "processing_results"
+
+log_path: "video_analizer.log"
+debug: true
