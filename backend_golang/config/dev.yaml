@@ -4,10 +4,10 @@ rabbitmq:
 mongodb:
   url: "mongodb://localhost:27017"
   database: "video_processing_db"
-  collection_results: "processing_results"
+  collection_results: "processing_status"
 postgresql:
   host: "localhost"
-  port: 5432
+  port: 5577
   user: "postgres"
   password: "password"
   database: "video_processing_db"

@@ -28,11 +28,23 @@ func ConnectPostgreSQL(host string, port int, user, password, dbname, tableStatu
 		return nil, err
 	}
 
+	query := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s (processing_id VARCHAR(255) PRIMARY KEY, status VARCHAR(255) NOT NULL);`, tableStatus)
+
+	_, err = db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+
 	logger.Info("Connected to PostgreSQL", zap.String("host", host))
 	return &PostgreSQL{
 		DB:          db,
 		TableStatus: tableStatus,
 	}, nil
+}
+
+// Close connection
+func (pg *PostgreSQL) Close() {
+	pg.DB.Close()
 }
 
 // Insert status
@@ -52,6 +64,7 @@ func (pg *PostgreSQL) UpdateStatus(processingID, status string) error {
 // Get Status
 func (pg *PostgreSQL) GetStatus(processingID string) (string, error) {
 	query := fmt.Sprintf("SELECT status FROM %s WHERE processing_id=$1", pg.TableStatus)
+
 	var status string
 	err := pg.DB.QueryRow(query, processingID).Scan(&status)
 	return status, err
