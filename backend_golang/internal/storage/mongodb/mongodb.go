@@ -12,11 +12,10 @@ import (
 type MongoDB struct {
 	Client           *mongo.Client
 	Database         string
-	CollectionStatus *mongo.Collection
 	CollectionResult *mongo.Collection
 }
 
-// ConnectMongoDB подключается к MongoDB и возвращает объект MongoDB
+// mongodb connect
 func ConnectMongoDB(url, database, collectionStatus, collectionResults string, logger *zap.Logger) (*MongoDB, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
@@ -31,37 +30,8 @@ func ConnectMongoDB(url, database, collectionStatus, collectionResults string, l
 	return &MongoDB{
 		Client:           client,
 		Database:         database,
-		CollectionStatus: client.Database(database).Collection(collectionStatus),
 		CollectionResult: client.Database(database).Collection(collectionResults),
 	}, nil
-}
-
-// insert status by id
-func (db *MongoDB) InsertStatus(ctx context.Context, processingID, status string) error {
-	_, err := db.CollectionStatus.InsertOne(ctx, map[string]string{
-		"processing_id": processingID,
-		"status":        status,
-	})
-	return err
-}
-
-// update status by id
-func (db *MongoDB) UpdateStatus(ctx context.Context, processingID, status string) error {
-	_, err := db.CollectionStatus.UpdateOne(
-		ctx,
-		map[string]string{"processing_id": processingID},
-		map[string]interface{}{"$set": map[string]string{"status": status}},
-	)
-	return err
-}
-
-// get status by id
-func (db *MongoDB) GetStatus(ctx context.Context, processingID string) (string, error) {
-	var result struct {
-		Status string `bson:"status"`
-	}
-	err := db.CollectionStatus.FindOne(ctx, map[string]string{"processing_id": processingID}).Decode(&result)
-	return result.Status, err
 }
 
 // insert result by id

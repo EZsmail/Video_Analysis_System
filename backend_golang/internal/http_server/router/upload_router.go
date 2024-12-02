@@ -1,7 +1,6 @@
 package router
 
 import (
-	"context"
 	"encoding/json"
 	"net/http"
 	"time"
@@ -10,16 +9,17 @@ import (
 	"go.uber.org/zap"
 )
 
+// TODO: Change context
 type Task struct {
 	ProcessingID string `json:"processing_id"`
 	FilePath     string `json:"file_path"`
 }
 
-type StatusSaver interface {
-	InsertStatus(context.Context, string, string) error
+type ResultSaver interface {
+	InsertStatus(string, string) error
 }
 
-func RegisterUploadRoutes(r *gin.Engine, logger *zap.Logger, broker Sender, db StatusSaver) {
+func RegisterUploadRoutes(r *gin.Engine, logger *zap.Logger, broker Broker, db ResultSaver) {
 	r.POST("/upload", func(c *gin.Context) {
 		file, err := c.FormFile("file")
 		if err != nil {
@@ -37,8 +37,8 @@ func RegisterUploadRoutes(r *gin.Engine, logger *zap.Logger, broker Sender, db S
 			return
 		}
 
-		// save status to mongodb
-		if err := db.InsertStatus(c.Request.Context(), processingID, "in_progress"); err != nil {
+		// Save status to PostgreSQL
+		if err := db.InsertStatus(processingID, "in_progress"); err != nil {
 			logger.Error("Failed to save status", zap.Error(err))
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save status"})
 			return
@@ -47,6 +47,7 @@ func RegisterUploadRoutes(r *gin.Engine, logger *zap.Logger, broker Sender, db S
 		task := map[string]string{"processing_id": processingID, "file_path": filePath}
 		body, _ := json.Marshal(task)
 		if err := broker.SendTask("video_processing", body); err != nil {
+			logger.Error("Failed to send task to broker", zap.Error(err))
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to process task"})
 			return
 		}
