@@ -302,6 +302,15 @@
         "documentation": {}
     },
     {
+        "label": "pika",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pika",
+        "description": "pika",
+        "detail": "pika",
+        "documentation": {}
+    },
+    {
         "label": "router",
         "kind": 5,
         "importPath": "backend_python.app.api.routes",
@@ -443,6 +452,78 @@
         "description": "backend_python.app.main",
         "peekOfCode": "app = FastAPI()\napp.mount(\"/uploads\", StaticFiles(directory=\"uploads\"), name=\"uploads\")\n# TODO: Change in prod\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],  \n    allow_credentials=True,\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"]\n)",
         "detail": "backend_python.app.main",
+        "documentation": {}
+    },
+    {
+        "label": "connection",
+        "kind": 5,
+        "importPath": "ml.test_send",
+        "description": "ml.test_send",
+        "peekOfCode": "connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost', port=5672))\nchannel = connection.channel()\nchannel.queue_declare(queue='video_processing')\nmessage = {\n    \"processing_id\": \"12345\",\n    \"file_path\": \"/path/to/video.mp4\"\n}\nchannel.basic_publish(\n    exchange='',\n    routing_key='video_processing',",
+        "detail": "ml.test_send",
+        "documentation": {}
+    },
+    {
+        "label": "channel",
+        "kind": 5,
+        "importPath": "ml.test_send",
+        "description": "ml.test_send",
+        "peekOfCode": "channel = connection.channel()\nchannel.queue_declare(queue='video_processing')\nmessage = {\n    \"processing_id\": \"12345\",\n    \"file_path\": \"/path/to/video.mp4\"\n}\nchannel.basic_publish(\n    exchange='',\n    routing_key='video_processing',\n    body=json.dumps(message),",
+        "detail": "ml.test_send",
+        "documentation": {}
+    },
+    {
+        "label": "message",
+        "kind": 5,
+        "importPath": "ml.test_send",
+        "description": "ml.test_send",
+        "peekOfCode": "message = {\n    \"processing_id\": \"12345\",\n    \"file_path\": \"/path/to/video.mp4\"\n}\nchannel.basic_publish(\n    exchange='',\n    routing_key='video_processing',\n    body=json.dumps(message),\n)\nprint(\"Sent task:\", message)",
+        "detail": "ml.test_send",
+        "documentation": {}
+    },
+    {
+        "label": "process_video",
+        "kind": 2,
+        "importPath": "ml.worker",
+        "description": "ml.worker",
+        "peekOfCode": "def process_video(file_path):\n    print(f\"Processing video: {file_path}\")\n    time.sleep(5)\n    return [[\"Part 1\", \"00:00\", \"00:30\"], [\"Part 2\", \"00:31\", \"01:00\"]]\ndef save_csv(processing_id, csv_data):\n    output_file = f\"{processing_id}.csv\"\n    with open(output_file, mode=\"w\", newline=\"\") as file:\n        writer = csv.writer(file)\n        writer.writerow([\"Part\", \"Start time\", \"End time\"])\n        writer.writerows(csv_data)",
+        "detail": "ml.worker",
+        "documentation": {}
+    },
+    {
+        "label": "save_csv",
+        "kind": 2,
+        "importPath": "ml.worker",
+        "description": "ml.worker",
+        "peekOfCode": "def save_csv(processing_id, csv_data):\n    output_file = f\"{processing_id}.csv\"\n    with open(output_file, mode=\"w\", newline=\"\") as file:\n        writer = csv.writer(file)\n        writer.writerow([\"Part\", \"Start time\", \"End time\"])\n        writer.writerows(csv_data)\n    print(f\"Saved CSV: {output_file}\")\ndef on_message(channel, method, properties, body):\n    message = json.loads(body)\n    processing_id = message[\"processing_id\"]",
+        "detail": "ml.worker",
+        "documentation": {}
+    },
+    {
+        "label": "on_message",
+        "kind": 2,
+        "importPath": "ml.worker",
+        "description": "ml.worker",
+        "peekOfCode": "def on_message(channel, method, properties, body):\n    message = json.loads(body)\n    processing_id = message[\"processing_id\"]\n    file_path = message[\"file_path\"]\n    print(f\"Received task: {processing_id} - {file_path}\")\n    csv_data = process_video(file_path)\n    save_csv(processing_id, csv_data)\n    channel.basic_ack(delivery_tag=method.delivery_tag)\nconnection = pika.BlockingConnection(pika.ConnectionParameters(host=\"localhost\", port=\"5672\"))\nchannel = connection.channel()",
+        "detail": "ml.worker",
+        "documentation": {}
+    },
+    {
+        "label": "connection",
+        "kind": 5,
+        "importPath": "ml.worker",
+        "description": "ml.worker",
+        "peekOfCode": "connection = pika.BlockingConnection(pika.ConnectionParameters(host=\"localhost\", port=\"5672\"))\nchannel = connection.channel()\nchannel.queue_declare(queue=\"video_processing\")\nchannel.basic_consume(queue=\"video_processing\", on_message_callback=on_message)\nprint(\"Waiting for messages...\")\nchannel.start_consuming()",
+        "detail": "ml.worker",
+        "documentation": {}
+    },
+    {
+        "label": "channel",
+        "kind": 5,
+        "importPath": "ml.worker",
+        "description": "ml.worker",
+        "peekOfCode": "channel = connection.channel()\nchannel.queue_declare(queue=\"video_processing\")\nchannel.basic_consume(queue=\"video_processing\", on_message_callback=on_message)\nprint(\"Waiting for messages...\")\nchannel.start_consuming()",
+        "detail": "ml.worker",
         "documentation": {}
     }
 ]

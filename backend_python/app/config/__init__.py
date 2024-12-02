@@ -1,1 +1,0 @@
-from .config import DATABASE_URL, CELERY_URL, UPLOAD_PATH
