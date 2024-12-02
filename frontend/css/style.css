@@ -25,23 +25,23 @@ body {
     min-height: 100%;
     width: auto;
     height: auto;
-    z-index: -1; /* Помещает GIF под остальными элементами */
+    z-index: -1; 
     transform: translate(-50%, -50%);
-    object-fit: cover; /* Обеспечивает обрезку по размеру экрана */
+    object-fit: cover; 
 }
 
 
 .container {
     text-align: center;
-    background-color: rgba(66, 88, 65, 0.588); /* Полупрозрачный белый фон */
-    backdrop-filter: blur(5px); /* Эффект размытия фона */
+    background-color: rgba(66, 88, 65, 0.588); 
+    backdrop-filter: blur(5px);
     padding: 2rem;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     border-radius: 60px;
     max-width: 700px !important;
     width: 100%;
-    position: relative; /* Для наложения других элементов */
-    z-index: 1; /* Обеспечивает, чтобы контейнер был выше GIF */
+    position: relative;
+    z-index: 1; 
 }
 
 h1 {
@@ -66,36 +66,36 @@ p {
 /*poisk po id*/
 .id-check {
     font-family: 'Arial', sans-serif;
-    margin: 2rem 0; /* Увеличиваем отступы сверху и снизу */
+    margin: 2rem 0; 
     color: #94ab99;
-    display: flex; /* Используем flexbox для выравнивания */
-    flex-direction: column; /* Вертикальное расположение элементов */
-    align-items: center; /* Центрируем элементы по горизонтали */
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
 }
 
 .input-container {
-    display: flex; /* Включаем flexbox */
-    align-items: stretch; /* Растягиваем элементы по высоте */
-    gap: 0.2rem; /* Отступ между элементами */
+    display: flex;
+    align-items: stretch; 
+    gap: 0.2rem; 
 }
 
 #videoIdInput {
     flex: 1;
-    height: 48px; /* Задаем высоту, если нужно */
-    width: 100%; /* Занимает всю ширину родительского контейнера */
-    background-color: #333; /* Темный фон */
-    color: #fff; /* Светлый текст */
-    max-width: 400px; /* Ограничение максимальной ширины */
-    padding: 0.75rem; /* Внутренние отступы для удобства ввода */
-    border: 3px solid #7c604d;; /* Цвет рамки */
-    border-radius: 10px; /* Закругление углов */
-    font-size: 1rem; /* Размер шрифта */
-    transition: border-color 0.2s; /* Плавный переход цвета рамки */
+    height: 48px;
+    width: 100%;
+    background-color: #333;
+    color: #fff; 
+    max-width: 400px;
+    padding: 0.75rem; 
+    border: 3px solid #7c604d;; 
+    border-radius: 10px; 
+    font-size: 1rem; 
+    transition: border-color 0.2s;
 }
 
 #videoIdInput:focus {
-    border-color: #48372c; /* Цвет рамки при фокусе */
-    outline: none; /* Убираем стандартный обвод */
+    border-color: #48372c; 
+    outline: none; 
 }
 
 .check_id_button {
@@ -107,9 +107,9 @@ p {
     cursor: pointer;
     font-size: 1rem;
     transition: background-color 0.3s ease;
-    align-items: center; /* Вертикальное выравнивание */
-    justify-content: center; /* Горизонтальное выравнивание */
-    height: 100%; /* Растягиваем кнопку на всю высоту контейнера */
+    align-items: center;
+    justify-content: center; 
+    height: 100%;
 }
 
 .check_id_button:hover {
@@ -139,9 +139,9 @@ p {
     cursor: pointer;
     font-size: 1rem;
     transition: background-color 0.3s ease;
-    display: flex; /* Используем flexbox */
-    align-items: center; /* Вертикальное выравнивание */
-    justify-content: center; /* Горизонтальное выравнивание */
+    display: flex; 
+    align-items: center;
+    justify-content: center;
 }
 
 .file-label:hover .file-custom {
@@ -161,9 +161,9 @@ p {
     cursor: pointer;
     font-size: 1.5rem;
     transition: background-color 0.8s ease;
-    display: flex; /* Используем flexbox */
-    align-items: center; /* Вертикальное выравнивание */
-    justify-content: center; /* Горизонтальное выравнивание */
+    display: flex;
+    align-items: center; 
+    justify-content: center;
 }
 
 .upload-button:hover {
