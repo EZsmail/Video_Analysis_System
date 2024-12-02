@@ -35,10 +35,10 @@ func ConnectMongoDB(url, database, collectionStatus, collectionResults string, l
 }
 
 // insert result by id
-func (db *MongoDB) InsertResult(ctx context.Context, processingID, resultPath string) error {
+func (db *MongoDB) InsertResult(ctx context.Context, processingID, jsonResult string) error {
 	_, err := db.CollectionResult.InsertOne(ctx, map[string]string{
 		"processing_id": processingID,
-		"result_path":   resultPath,
+		"result_path":   jsonResult,
 	})
 	return err
 }
@@ -46,8 +46,8 @@ func (db *MongoDB) InsertResult(ctx context.Context, processingID, resultPath st
 // get result by id
 func (db *MongoDB) GetResult(ctx context.Context, processingID string) (string, error) {
 	var result struct {
-		ResultPath string `bson:"result_path"`
+		jsonResult string `bson:"result_path"`
 	}
 	err := db.CollectionResult.FindOne(ctx, map[string]string{"processing_id": processingID}).Decode(&result)
-	return result.ResultPath, err
+	return result.jsonResult, err
 }
