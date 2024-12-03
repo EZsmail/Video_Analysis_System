@@ -2,6 +2,7 @@ package router
 
 import (
 	"context"
+	"encoding/json"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,7 +17,7 @@ func RegisterResultRoutes(r *gin.Engine, logger *zap.Logger, statusDB StatusGett
 	r.GET("/result/:processing_id", func(c *gin.Context) {
 		processingID := c.Param("processing_id")
 
-		// Проверяем статус обработки
+		// get status from pg
 		status, err := statusDB.GetStatus(processingID)
 		if err != nil {
 			logger.Error("Failed to get status", zap.Error(err), zap.String("processing_id", processingID))
@@ -30,7 +31,7 @@ func RegisterResultRoutes(r *gin.Engine, logger *zap.Logger, statusDB StatusGett
 			return
 		}
 
-		// Извлекаем результат из MongoDB
+		// get data from mongodb
 		result, err := resultDB.GetResult(c.Request.Context(), processingID)
 		if err != nil {
 			logger.Error("Failed to retrieve result", zap.Error(err), zap.String("processing_id", processingID))
@@ -44,10 +45,19 @@ func RegisterResultRoutes(r *gin.Engine, logger *zap.Logger, statusDB StatusGett
 			return
 		}
 
-		// Отправка результата как CSV-файл
-		c.Header("Content-Type", "text/csv")
-		c.Header("Content-Disposition", "attachment; filename="+processingID+".csv")
-		c.String(http.StatusOK, result)
+		var parsedResult map[string]interface{}
+		if err := json.Unmarshal([]byte(result), &parsedResult); err != nil {
+			logger.Error("Failed to parse result JSON", zap.Error(err), zap.String("processing_id", processingID))
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to parse result JSON"})
+			return
+		}
+
+		// send result as json
+		c.Header("Content-Type", "application/json")
+		c.JSON(http.StatusOK, gin.H{
+			"processing_id": processingID,
+			"result":        parsedResult,
+		})
 
 		logger.Info("Result served", zap.String("processing_id", processingID))
 	})
