@@ -4,27 +4,42 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log"
+	"os"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/joho/godotenv"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 )
 
 var (
-	jwtSecret   = []byte("your_secret_key")
+	jwtSecret   = []byte("qiotoEz")
 	oauthConfig = &oauth2.Config{
-		ClientID:     "YOUR_CLIENT_ID",
-		ClientSecret: "YOUR_CLIENT_SECRET",
-		RedirectURL:  "http://localhost:8080/auth/google/callback",
+		ClientID:     goDotEnvVariable("CLIENTID"),
+		ClientSecret: goDotEnvVariable("CLIENTSECRET"),
+		RedirectURL:  "http://localhost:8085/auth/google/callback",
 		Scopes: []string{
 			"https://www.googleapis.com/auth/userinfo.profile",
 			"https://www.googleapis.com/auth/userinfo.email",
 		},
 		Endpoint: google.Endpoint,
 	}
-	oauthStateString = "random-string"
+	oauthStateString = "qioto"
 )
+
+func goDotEnvVariable(key string) string {
+
+	// load .env file
+	err := godotenv.Load(".env")
+
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
+
+	return os.Getenv(key)
+}
 
 func GenerateJWT(userID string) (string, error) {
 	claims := jwt.MapClaims{
@@ -35,7 +50,7 @@ func GenerateJWT(userID string) (string, error) {
 	return token.SignedString(jwtSecret)
 }
 
-// ExchangeCode обрабатывает код Google OAuth и возвращает данные пользователя
+// get user data as map
 func ExchangeCode(code string) (map[string]interface{}, error) {
 	token, err := oauthConfig.Exchange(context.Background(), code)
 	if err != nil {
@@ -57,7 +72,7 @@ func ExchangeCode(code string) (map[string]interface{}, error) {
 	return userInfo, nil
 }
 
-// AuthURL генерирует URL для Google OAuth
+// url generate
 func AuthURL() string {
 	return oauthConfig.AuthCodeURL(oauthStateString)
 }

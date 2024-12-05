@@ -6,17 +6,21 @@ import (
 	"backend-golang/internal/auth"
 
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
-func RegisterAuthRoutes(router *gin.Engine) {
-	authGroup := router.Group("/auth")
+func RegisterAuthRoutes(router *gin.Engine, log *zap.Logger) {
+	authGroup := router.Group("/login")
 
-	authGroup.GET("/google/login", func(c *gin.Context) {
+	// Google OAuth Login
+	authGroup.GET("/", func(c *gin.Context) {
+		// url generation for google auth
 		url := auth.AuthURL()
 		c.Redirect(http.StatusTemporaryRedirect, url)
 	})
 
-	authGroup.GET("/google/callback", func(c *gin.Context) {
+	// google callback
+	authGroup.GET("/redirect", func(c *gin.Context) {
 		code := c.Query("code")
 		if code == "" {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Code not provided"})
@@ -29,13 +33,31 @@ func RegisterAuthRoutes(router *gin.Engine) {
 			return
 		}
 
+		// get id from google api
 		userID := userInfo["id"].(string)
-		token, err := auth.GenerateJWT(userID)
+
+		// create session
+		err = auth.CreateSession(c, userID)
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate token"})
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create session"})
 			return
 		}
 
-		c.JSON(http.StatusOK, gin.H{"token": token, "user": userInfo})
+		// TODO: Add logging
+		// c.JSON(http.StatusOK, gin.H{"message": "Successfully logged in", "user": userInfo})
+
+		log.Info("Redirect succesfull")
+
+		c.Redirect(http.StatusPermanentRedirect, "http://localhost:8085/")
+	})
+
+	// Logout (удаление сессии)
+	authGroup.POST("/logout", func(c *gin.Context) {
+		err := auth.DestroySession(c)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to destroy session"})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{"message": "Successfully logged out"})
 	})
 }

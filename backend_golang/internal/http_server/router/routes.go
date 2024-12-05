@@ -3,6 +3,7 @@ package router
 import (
 	"backend-golang/internal/http_server/middleware"
 	"context"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -32,7 +33,13 @@ func SetupRouter(logger *zap.Logger, broker Broker, mongo ResultUpdater, pg Stat
 
 	r.Use(middleware.GinLogger(logger))
 
-	// TODO: Change database
+	// TODO: Change logger
+
+	r.GET("/", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{"status": "all good"})
+	})
+
+	RegisterAuthRoutes(r, logger)
 	RegisterUploadRoutes(r, logger, broker, pg)
 	RegisterStatusRoutes(r, logger, pg)
 	RegisterResultRoutes(r, logger, pg, mongo)

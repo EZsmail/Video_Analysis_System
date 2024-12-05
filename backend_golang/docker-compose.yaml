@@ -34,27 +34,27 @@ services:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
 
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: video-processing-backend
-    restart: always
-    ports:
-      - "8090:8080"
-    environment:
-      MONGO_URL: mongodb://mongo:27017
-      POSTGRES_HOST: postgres
-      POSTGRES_PORT: 5432
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: video_processing_db
-      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672
-      ENV: dev
-    depends_on:
-      - mongo
-      - postgres
-      - rabbitmq
+  # app:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   container_name: video-processing-backend
+  #   restart: always
+  #   ports:
+  #     - "8080:8080"
+  #   environment:
+  #     MONGO_URL: mongodb://mongo:27017
+  #     POSTGRES_HOST: postgres
+  #     POSTGRES_PORT: 5432
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: password
+  #     POSTGRES_DB: video_processing_db
+  #     RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672
+  #     ENV: dev
+  #   depends_on:
+  #     - mongo
+  #     - postgres
+  #     - rabbitmq
 
 volumes:
   mongo_data:
