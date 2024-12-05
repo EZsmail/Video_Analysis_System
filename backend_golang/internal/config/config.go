@@ -12,6 +12,7 @@ type Config struct {
 	PostgreSQL `yaml:"postgresql"`
 	LogPath    string `yaml:"log_path"`
 	Debug      bool   `yaml:"debug"`
+	Port       int    `yaml:"port"`
 }
 
 type RabbitMQ struct {

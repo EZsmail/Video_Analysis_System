@@ -7,19 +7,22 @@ import (
 	"backend-golang/internal/mq"
 	mongo "backend-golang/internal/storage/mongodb"
 	"backend-golang/internal/storage/postgresql"
+	"fmt"
 	"log"
+	"os"
 
 	"go.uber.org/zap"
 )
 
-// const (
-// 	envDev  = "dev"
-// 	envProd = "prod"
-// )
-
 func main() {
-	path := "config/dev.yaml"
-	cfg, err := config.LoadConfig(path)
+	env := os.Getenv("ENV")
+	if env == "" {
+		env = "local"
+	}
+
+	pathCfg := fmt.Sprintf("config/%s.yaml", env)
+
+	cfg, err := config.LoadConfig(pathCfg)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -59,8 +62,8 @@ func main() {
 
 	r := router.SetupRouter(log, rabbitConn, mongo, pg, cfg.Debug)
 
-	log.Info("Starting server on :8080")
-	if err := r.Run(":8082"); err != nil {
+	log.Info("Starting server", zap.Int("Port: ", cfg.Port))
+	if err := r.Run(fmt.Sprintf(":%d", cfg.Port)); err != nil {
 		log.Fatal("start server failed", zap.Error(err))
 	}
 }
