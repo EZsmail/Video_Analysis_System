@@ -1,6 +1,7 @@
 package router
 
 import (
+	"fmt"
 	"net/http"
 
 	"backend-golang/internal/auth"
@@ -46,7 +47,7 @@ func RegisterAuthRoutes(router *gin.Engine, log *zap.Logger) {
 		// TODO: Add logging
 		// c.JSON(http.StatusOK, gin.H{"message": "Successfully logged in", "user": userInfo})
 
-		log.Info("Redirect succesfull")
+		log.Info("Redirect succesfull", zap.String("user info", fmt.Sprintf("%+v", userInfo)))
 
 		c.Redirect(http.StatusPermanentRedirect, "http://localhost:8080/")
 	})

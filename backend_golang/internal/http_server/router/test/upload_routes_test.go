@@ -32,6 +32,7 @@ func TestRegisterUploadRoutes(t *testing.T) {
 	// Инициализация Gin
 	gin.SetMode(gin.TestMode)
 	r := gin.Default()
+	route := r.Group("/")
 
 	// Логгер
 	logger, _ := zap.NewProduction()
@@ -41,7 +42,7 @@ func TestRegisterUploadRoutes(t *testing.T) {
 	mockResultSaver := &MockResultSaver{}
 
 	// Регистрируем маршруты
-	router.RegisterUploadRoutes(r, logger, mockBroker, mockResultSaver)
+	router.RegisterUploadRoutes(route, logger, mockBroker, mockResultSaver)
 
 	// Создаем тестовый запрос с файлом
 	// Создаем тело запроса с файлом

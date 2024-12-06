@@ -19,7 +19,7 @@ type ResultSaver interface {
 	InsertStatus(string, string) error
 }
 
-func RegisterUploadRoutes(r *gin.Engine, logger *zap.Logger, broker Broker, db ResultSaver) {
+func RegisterUploadRoutes(r *gin.RouterGroup, logger *zap.Logger, broker Broker, db ResultSaver) {
 	r.POST("/upload", func(c *gin.Context) {
 		file, err := c.FormFile("file")
 		if err != nil {

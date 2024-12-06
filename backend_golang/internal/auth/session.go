@@ -7,7 +7,7 @@ import (
 
 var (
 	// cookie secret key
-	// TODO: Cookies cret key
+	// TODO: Cookies creat key
 	key   = []byte("qiotoSecretKey")
 	store = sessions.NewCookieStore(key) // using cookie store
 

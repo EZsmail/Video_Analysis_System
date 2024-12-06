@@ -12,10 +12,9 @@ type StatusGetter interface {
 	GetStatus(string) (string, error)
 }
 
-func RegisterStatusRoutes(r *gin.Engine, logger *zap.Logger, pg StatusGetter) {
+func RegisterStatusRoutes(r *gin.RouterGroup, logger *zap.Logger, pg StatusGetter) {
 	r.GET("/status/:processing_id", func(c *gin.Context) {
 		processingID := c.Param("processing_id")
-		//TODO: delete
 
 		status, err := pg.GetStatus(processingID)
 		if err != nil {

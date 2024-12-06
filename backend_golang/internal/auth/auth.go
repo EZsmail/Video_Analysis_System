@@ -10,6 +10,7 @@ import (
 
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/joho/godotenv"
+	"go.uber.org/zap"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 )
@@ -35,7 +36,8 @@ func goDotEnvVariable(key string) string {
 	err := godotenv.Load(".env")
 
 	if err != nil {
-		log.Fatalf("Error loading .env file")
+		dir, _ := os.Getwd()
+		log.Fatal("Error loading .env file", err.Error(), zap.String("path", dir))
 	}
 
 	return os.Getenv(key)

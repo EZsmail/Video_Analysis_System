@@ -39,9 +39,12 @@ func SetupRouter(logger *zap.Logger, broker Broker, mongo ResultUpdater, pg Stat
 		c.JSON(http.StatusOK, gin.H{"status": "all good"})
 	})
 
+	private := r.Group("/private")
+	private.Use(middleware.SessionMiddleware())
+
 	RegisterAuthRoutes(r, logger)
-	RegisterUploadRoutes(r, logger, broker, pg)
-	RegisterStatusRoutes(r, logger, pg)
+	RegisterUploadRoutes(private, logger, broker, pg)
+	RegisterStatusRoutes(private, logger, pg)
 	RegisterResultRoutes(r, logger, pg, mongo)
 
 	return r
