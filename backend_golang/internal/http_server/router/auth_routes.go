@@ -48,7 +48,7 @@ func RegisterAuthRoutes(router *gin.Engine, log *zap.Logger) {
 
 		log.Info("Redirect succesfull")
 
-		c.Redirect(http.StatusPermanentRedirect, "http://localhost:8085/")
+		c.Redirect(http.StatusPermanentRedirect, "http://localhost:8080/")
 	})
 
 	// Logout (удаление сессии)

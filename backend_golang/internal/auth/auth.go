@@ -19,7 +19,7 @@ var (
 	oauthConfig = &oauth2.Config{
 		ClientID:     goDotEnvVariable("CLIENTID"),
 		ClientSecret: goDotEnvVariable("CLIENTSECRET"),
-		RedirectURL:  "http://localhost:8085/auth/google/callback",
+		RedirectURL:  "http://localhost:8080/login/redirect",
 		Scopes: []string{
 			"https://www.googleapis.com/auth/userinfo.profile",
 			"https://www.googleapis.com/auth/userinfo.email",
