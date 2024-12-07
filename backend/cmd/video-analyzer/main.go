@@ -27,6 +27,7 @@ func main() {
 		log.Fatal(err)
 	}
 
+	//TODO: change info/debug logger
 	log, err := logger.InitLogger(cfg.LogPath, cfg.Debug)
 	if err != nil {
 		log.Fatal(err.Error())
@@ -62,8 +63,8 @@ func main() {
 
 	r := router.SetupRouter(log, rabbitConn, mongo, pg, cfg.Debug)
 
-	log.Info("Starting server", zap.Int("Port: ", cfg.Port))
-	if err := r.Run(fmt.Sprintf(":%d", cfg.Port)); err != nil {
+	log.Info("Starting server on port 8080")
+	if err := r.Run(":8080"); err != nil {
 		log.Fatal("start server failed", zap.Error(err))
 	}
 }

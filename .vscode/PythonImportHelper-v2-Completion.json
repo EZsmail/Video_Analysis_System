@@ -155,7 +155,7 @@
         "kind": 5,
         "importPath": "ml.worker",
         "description": "ml.worker",
-        "peekOfCode": "rabbitmq_host = os.getenv(\"RABBITMQ_HOST\", \"localhost\")\nrabbitmq_port = os.getenv(\"RABBITMQ_PORT\", 5672)\nconnection = pika.BlockingConnection(pika.ConnectionParameters(host=rabbitmq_host, port=rabbitmq_port))\nchannel = connection.channel()\nchannel.queue_declare(queue=\"video_processing\")\nchannel.basic_consume(queue=\"video_processing\", on_message_callback=on_message)\nprint(\"Waiting for messages...\")\nchannel.start_consuming()",
+        "peekOfCode": "rabbitmq_host = os.getenv(\"RABBIT_HOST\", \"localhost\")\nrabbitmq_port = os.getenv(\"RABBIT_PORT\", 5672)\nconnection = pika.BlockingConnection(pika.ConnectionParameters(host=rabbitmq_host, port=rabbitmq_port))\nchannel = connection.channel()\nchannel.queue_declare(queue=\"video_processing\")\nchannel.basic_consume(queue=\"video_processing\", on_message_callback=on_message)\nprint(\"Waiting for messages...\")\nchannel.start_consuming()",
         "detail": "ml.worker",
         "documentation": {}
     },
@@ -164,7 +164,7 @@
         "kind": 5,
         "importPath": "ml.worker",
         "description": "ml.worker",
-        "peekOfCode": "rabbitmq_port = os.getenv(\"RABBITMQ_PORT\", 5672)\nconnection = pika.BlockingConnection(pika.ConnectionParameters(host=rabbitmq_host, port=rabbitmq_port))\nchannel = connection.channel()\nchannel.queue_declare(queue=\"video_processing\")\nchannel.basic_consume(queue=\"video_processing\", on_message_callback=on_message)\nprint(\"Waiting for messages...\")\nchannel.start_consuming()",
+        "peekOfCode": "rabbitmq_port = os.getenv(\"RABBIT_PORT\", 5672)\nconnection = pika.BlockingConnection(pika.ConnectionParameters(host=rabbitmq_host, port=rabbitmq_port))\nchannel = connection.channel()\nchannel.queue_declare(queue=\"video_processing\")\nchannel.basic_consume(queue=\"video_processing\", on_message_callback=on_message)\nprint(\"Waiting for messages...\")\nchannel.start_consuming()",
         "detail": "ml.worker",
         "documentation": {}
     },

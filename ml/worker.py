@@ -73,8 +73,8 @@ def on_message(channel, method, properties, body):
     finally:
         channel.basic_ack(delivery_tag=method.delivery_tag)
 
-rabbitmq_host = os.getenv("RABBITMQ_HOST", "localhost")
-rabbitmq_port = os.getenv("RABBITMQ_PORT", 5672)
+rabbitmq_host = os.getenv("RABBIT_HOST", "localhost")
+rabbitmq_port = os.getenv("RABBIT_PORT", 5672)
 connection = pika.BlockingConnection(pika.ConnectionParameters(host=rabbitmq_host, port=rabbitmq_port))
 channel = connection.channel()
 
