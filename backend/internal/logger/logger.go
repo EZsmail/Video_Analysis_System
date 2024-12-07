@@ -49,3 +49,10 @@ func InitLogger(logFilePath string, debug bool) (*zap.Logger, error) {
 
 	return logger, nil
 }
+
+func IsDebug() bool {
+	if debugLog, exists := os.LookupEnv("DEBUG"); debugLog == "True" || !exists {
+		return true
+	}
+	return false
+}

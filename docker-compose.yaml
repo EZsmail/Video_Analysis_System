@@ -36,7 +36,7 @@ services:
     build:
       context: backend/.
       dockerfile: Dockerfile
-    container_name: video-processing-backend
+    container_name: video-analysis-backend
     restart: always
     ports:
       - "8080:8080"

@@ -2,8 +2,7 @@ package config
 
 import (
 	"os"
-
-	"gopkg.in/yaml.v3"
+	"strconv"
 )
 
 type Config struct {
@@ -11,8 +10,6 @@ type Config struct {
 	MongoDB    `yaml:"mongodb"`
 	PostgreSQL `yaml:"postgresql"`
 	LogPath    string `yaml:"log_path"`
-	Debug      bool   `yaml:"debug"`
-	Port       int    `yaml:"port"`
 }
 
 type RabbitMQ struct {
@@ -23,7 +20,6 @@ type RabbitMQ struct {
 type MongoDB struct {
 	URL              string `yaml:"url"`
 	Database         string `yaml:"database"`
-	CollectionStatus string `yaml:"collection_status"`
 	CollectionResult string `yaml:"collection_results"`
 }
 
@@ -36,17 +32,40 @@ type PostgreSQL struct {
 	TableStatus string `yaml:"table_status"`
 }
 
-func LoadConfig(path string) (*Config, error) {
-	file, err := os.ReadFile(path)
-	if err != nil {
-		return nil, err
-	}
+func LoadConfig() (*Config, error) {
+	return &Config{
+		RabbitMQ{
+			getEnv("RABBIT_URL", ""),
+			getEnv("RABBIT_QUEUE_NAME", ""),
+		},
+		MongoDB{
+			getEnv("MONGO_URL", ""),
+			getEnv("MONGO_DATABASE", ""),
+			getEnv("MONGO_COLLECTION_RESULTS", ""),
+		},
+		PostgreSQL{
+			getEnv("POSTGRES_HOST", ""),
+			getEnvInt("POSTGRES_PORT", 5432),
+			getEnv("POSTGRES_USER", ""),
+			getEnv("POSTGRES_PASSWORD", ""),
+			getEnv("POSTGRES_DB", ""),
+			getEnv("POSTGRES_TABLE", ""),
+		},
+		getEnv("LOG_PATH", "video_analizer.log"),
+	}, nil
+}
 
-	var config Config
-	err = yaml.Unmarshal(file, &config)
-	if err != nil {
-		return nil, err
+func getEnv(envName, defaultValue string) string {
+	if env, exists := os.LookupEnv(envName); exists {
+		return env
 	}
+	return defaultValue
+}
 
-	return &config, nil
+func getEnvInt(envName string, defaultValue int) int {
+	if env, exists := os.LookupEnv(envName); exists {
+		res, _ := strconv.Atoi(env)
+		return res
+	}
+	return defaultValue
 }

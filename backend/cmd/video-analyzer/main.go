@@ -7,28 +7,20 @@ import (
 	"backend-golang/internal/mq"
 	mongo "backend-golang/internal/storage/mongodb"
 	"backend-golang/internal/storage/postgresql"
-	"fmt"
 	"log"
-	"os"
 
 	"go.uber.org/zap"
 )
 
 func main() {
-	env := os.Getenv("ENV")
-	if env == "" {
-		env = "local"
-	}
-
-	pathCfg := fmt.Sprintf("config/%s.yaml", env)
-
-	cfg, err := config.LoadConfig(pathCfg)
+	cfg, err := config.LoadConfig()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	//TODO: change info/debug logger
-	log, err := logger.InitLogger(cfg.LogPath, cfg.Debug)
+	var debug = logger.IsDebug()
+
+	log, err := logger.InitLogger(cfg.LogPath, debug)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
@@ -56,12 +48,12 @@ func main() {
 	}
 	defer pg.Close()
 
-	mongo, err := mongo.ConnectMongoDB(cfg.MongoDB.URL, cfg.MongoDB.Database, cfg.MongoDB.CollectionStatus, cfg.MongoDB.CollectionResult, log)
+	mongo, err := mongo.ConnectMongoDB(cfg.MongoDB.URL, cfg.MongoDB.Database, cfg.MongoDB.CollectionResult, cfg.MongoDB.CollectionResult, log)
 	if err != nil {
 		log.Fatal("connection mongodb failed", zap.Error(err))
 	}
 
-	r := router.SetupRouter(log, rabbitConn, mongo, pg, cfg.Debug)
+	r := router.SetupRouter(log, rabbitConn, mongo, pg, debug)
 
 	log.Info("Starting server on port 8080")
 	if err := r.Run(":8080"); err != nil {
