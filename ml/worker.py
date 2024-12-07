@@ -1,22 +1,26 @@
 import pika
 import json
 import time
-import csv
 from pymongo import MongoClient
 import psycopg2
 from psycopg2.extras import execute_values
+import os
 
-mongo_client = MongoClient("mongodb://localhost:27017")
+
+mongo_url = os.getenv("MONGO_URL", "mongodb://localhost:27017")
+mongo_client = MongoClient(mongo_url)
+
 mongo_db = mongo_client["video_processing_db"]
 collection_results = mongo_db["collection_results"]
 
 
+
 pg_connection = psycopg2.connect(
-    dbname="video_processing_db",
-    user="postgres",
-    password="password",
-    host="localhost",
-    port=5440
+    dbname=os.getenv("POSTGRES_DB", "video_processing_db"),
+    user=os.getenv("POSTGRES_USER", "postgres"),
+    password=os.getenv("POSTGRES_PASSWORD", "password"),
+    host=os.getenv("POSTGRES_HOST", "localhost"),
+    port=os.getenv("POSTGRES_PORT", 5440)
 )
 pg_cursor = pg_connection.cursor()
 
@@ -25,16 +29,6 @@ def process_video(file_path):
     print(f"Processing video: {file_path}")
     time.sleep(5)
     return [["Part 1", "00:00", "00:30"], ["Part 2", "00:31", "01:00"]]
-
-
-def save_csv(processing_id, csv_data):
-    output_file = f"{processing_id}.csv"
-    with open(output_file, mode="w", newline="") as file:
-        writer = csv.writer(file)
-        writer.writerow(["Part", "Start time", "End time"])
-        writer.writerows(csv_data)
-    print(f"Saved CSV: {output_file}")
-
 
 def update_status_in_postgresql(processing_id, status):
     query = "UPDATE processing_status SET status = %s WHERE processing_id = %s"
@@ -70,9 +64,6 @@ def on_message(channel, method, properties, body):
         save_results_to_mongodb(processing_id, csv_data)
         
 
-        save_csv(processing_id, csv_data)
-        
-
         update_status_in_postgresql(processing_id, "completed")
         
     except Exception as e:
@@ -82,7 +73,9 @@ def on_message(channel, method, properties, body):
     finally:
         channel.basic_ack(delivery_tag=method.delivery_tag)
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(host="localhost", port="5672"))
+rabbitmq_host = os.getenv("RABBITMQ_HOST", "localhost")
+rabbitmq_port = os.getenv("RABBITMQ_PORT", 5672)
+connection = pika.BlockingConnection(pika.ConnectionParameters(host=rabbitmq_host, port=rabbitmq_port))
 channel = connection.channel()
 
 channel.queue_declare(queue="video_processing")
