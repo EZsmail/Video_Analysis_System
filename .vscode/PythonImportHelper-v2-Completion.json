@@ -1,188 +1,11 @@
 [
     {
-        "label": "APIRouter",
-        "importPath": "fastapi",
-        "description": "fastapi",
-        "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
-        "label": "UploadFile",
-        "importPath": "fastapi",
-        "description": "fastapi",
-        "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
-        "label": "File",
-        "importPath": "fastapi",
-        "description": "fastapi",
-        "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
-        "label": "HTTPException",
-        "importPath": "fastapi",
-        "description": "fastapi",
-        "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
-        "label": "FastAPI",
-        "importPath": "fastapi",
-        "description": "fastapi",
-        "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
-        "label": "StreamingResponse",
-        "importPath": "fastapi.responses",
-        "description": "fastapi.responses",
-        "isExtraImport": true,
-        "detail": "fastapi.responses",
-        "documentation": {}
-    },
-    {
-        "label": "uuid4",
-        "importPath": "uuid",
-        "description": "uuid",
-        "isExtraImport": true,
-        "detail": "uuid",
-        "documentation": {}
-    },
-    {
-        "label": "VideoStateRepository",
-        "importPath": "app.database",
-        "description": "app.database",
-        "isExtraImport": true,
-        "detail": "app.database",
-        "documentation": {}
-    },
-    {
-        "label": "VideoDataRepository",
-        "importPath": "app.database",
-        "description": "app.database",
-        "isExtraImport": true,
-        "detail": "app.database",
-        "documentation": {}
-    },
-    {
-        "label": "MongoDBClient",
-        "importPath": "app.database",
-        "description": "app.database",
-        "isExtraImport": true,
-        "detail": "app.database",
-        "documentation": {}
-    },
-    {
-        "label": "MongoDBClient",
-        "importPath": "app.database.mongo",
-        "description": "app.database.mongo",
-        "isExtraImport": true,
-        "detail": "app.database.mongo",
-        "documentation": {}
-    },
-    {
-        "label": "MongoDBClient",
-        "importPath": "app.database.mongo",
-        "description": "app.database.mongo",
-        "isExtraImport": true,
-        "detail": "app.database.mongo",
-        "documentation": {}
-    },
-    {
-        "label": "DATABASE_URL",
-        "importPath": "app.config",
-        "description": "app.config",
-        "isExtraImport": true,
-        "detail": "app.config",
-        "documentation": {}
-    },
-    {
-        "label": "UPLOAD_PATH",
-        "importPath": "app.config",
-        "description": "app.config",
-        "isExtraImport": true,
-        "detail": "app.config",
-        "documentation": {}
-    },
-    {
-        "label": "MongoClient",
-        "importPath": "pymongo",
-        "description": "pymongo",
-        "isExtraImport": true,
-        "detail": "pymongo",
-        "documentation": {}
-    },
-    {
-        "label": "MongoClient",
-        "importPath": "pymongo",
-        "description": "pymongo",
-        "isExtraImport": true,
-        "detail": "pymongo",
-        "documentation": {}
-    },
-    {
-        "label": "MongoClient",
-        "importPath": "pymongo",
-        "description": "pymongo",
-        "isExtraImport": true,
-        "detail": "pymongo",
-        "documentation": {}
-    },
-    {
-        "label": "ConnectionFailure",
-        "importPath": "pymongo.errors",
-        "description": "pymongo.errors",
-        "isExtraImport": true,
-        "detail": "pymongo.errors",
-        "documentation": {}
-    },
-    {
-        "label": "DuplicateKeyError",
-        "importPath": "pymongo.errors",
-        "description": "pymongo.errors",
-        "isExtraImport": true,
-        "detail": "pymongo.errors",
-        "documentation": {}
-    },
-    {
-        "label": "PyMongoError",
-        "importPath": "pymongo.errors",
-        "description": "pymongo.errors",
-        "isExtraImport": true,
-        "detail": "pymongo.errors",
-        "documentation": {}
-    },
-    {
-        "label": "ConnectionFailure",
-        "importPath": "pymongo.errors",
-        "description": "pymongo.errors",
-        "isExtraImport": true,
-        "detail": "pymongo.errors",
-        "documentation": {}
-    },
-    {
-        "label": "pandas",
+        "label": "pika",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "pandas",
-        "description": "pandas",
-        "detail": "pandas",
-        "documentation": {}
-    },
-    {
-        "label": "io",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "io",
-        "description": "io",
-        "detail": "io",
+        "importPath": "pika",
+        "description": "pika",
+        "detail": "pika",
         "documentation": {}
     },
     {
@@ -195,31 +18,6 @@
         "documentation": {}
     },
     {
-        "label": "os",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "os",
-        "description": "os",
-        "detail": "os",
-        "documentation": {}
-    },
-    {
-        "label": "Celery",
-        "importPath": "celery",
-        "description": "celery",
-        "isExtraImport": true,
-        "detail": "celery",
-        "documentation": {}
-    },
-    {
-        "label": "Env",
-        "importPath": "envparse",
-        "description": "envparse",
-        "isExtraImport": true,
-        "detail": "envparse",
-        "documentation": {}
-    },
-    {
         "label": "time",
         "kind": 6,
         "isExtraImport": true,
@@ -229,256 +27,37 @@
         "documentation": {}
     },
     {
-        "label": "csv",
+        "label": "MongoClient",
+        "importPath": "pymongo",
+        "description": "pymongo",
+        "isExtraImport": true,
+        "detail": "pymongo",
+        "documentation": {}
+    },
+    {
+        "label": "psycopg2",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "csv",
-        "description": "csv",
-        "detail": "csv",
+        "importPath": "psycopg2",
+        "description": "psycopg2",
+        "detail": "psycopg2",
         "documentation": {}
     },
     {
-        "label": "celery_app",
-        "importPath": "app.config.celery_config",
-        "description": "app.config.celery_config",
+        "label": "execute_values",
+        "importPath": "psycopg2.extras",
+        "description": "psycopg2.extras",
         "isExtraImport": true,
-        "detail": "app.config.celery_config",
+        "detail": "psycopg2.extras",
         "documentation": {}
     },
     {
-        "label": "ML",
-        "importPath": "app.ml",
-        "description": "app.ml",
-        "isExtraImport": true,
-        "detail": "app.ml",
-        "documentation": {}
-    },
-    {
-        "label": "video_data_repo",
-        "importPath": "app.api.routes",
-        "description": "app.api.routes",
-        "isExtraImport": true,
-        "detail": "app.api.routes",
-        "documentation": {}
-    },
-    {
-        "label": "video_state_repo",
-        "importPath": "app.api.routes",
-        "description": "app.api.routes",
-        "isExtraImport": true,
-        "detail": "app.api.routes",
-        "documentation": {}
-    },
-    {
-        "label": "DATABASE_URL",
-        "importPath": "config",
-        "description": "config",
-        "isExtraImport": true,
-        "detail": "config",
-        "documentation": {}
-    },
-    {
-        "label": "CORSMiddleware",
-        "importPath": "fastapi.middleware.cors",
-        "description": "fastapi.middleware.cors",
-        "isExtraImport": true,
-        "detail": "fastapi.middleware.cors",
-        "documentation": {}
-    },
-    {
-        "label": "routes",
-        "importPath": "app.api",
-        "description": "app.api",
-        "isExtraImport": true,
-        "detail": "app.api",
-        "documentation": {}
-    },
-    {
-        "label": "StaticFiles",
-        "importPath": "fastapi.staticfiles",
-        "description": "fastapi.staticfiles",
-        "isExtraImport": true,
-        "detail": "fastapi.staticfiles",
-        "documentation": {}
-    },
-    {
-        "label": "pika",
+        "label": "os",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "pika",
-        "description": "pika",
-        "detail": "pika",
-        "documentation": {}
-    },
-    {
-        "label": "router",
-        "kind": 5,
-        "importPath": "backend_python.app.api.routes",
-        "description": "backend_python.app.api.routes",
-        "peekOfCode": "router = APIRouter()\n# DB init\ndb_client = MongoDBClient(uri=DATABASE_URL, db_name=\"video_db\")\nvideo_state_repo = VideoStateRepository(db_client)\nvideo_data_repo = VideoDataRepository(db_client)\n@router.post(\"/upload-video/\")\nasync def upload_video(file: UploadFile = File(...)):\n    # Проверка подключения к БД\n    try:\n        client = MongoClient(DATABASE_URL)",
-        "detail": "backend_python.app.api.routes",
-        "documentation": {}
-    },
-    {
-        "label": "db_client",
-        "kind": 5,
-        "importPath": "backend_python.app.api.routes",
-        "description": "backend_python.app.api.routes",
-        "peekOfCode": "db_client = MongoDBClient(uri=DATABASE_URL, db_name=\"video_db\")\nvideo_state_repo = VideoStateRepository(db_client)\nvideo_data_repo = VideoDataRepository(db_client)\n@router.post(\"/upload-video/\")\nasync def upload_video(file: UploadFile = File(...)):\n    # Проверка подключения к БД\n    try:\n        client = MongoClient(DATABASE_URL)\n        client.admin.command('ping')\n        print(\"MongoDB доступен\")",
-        "detail": "backend_python.app.api.routes",
-        "documentation": {}
-    },
-    {
-        "label": "video_state_repo",
-        "kind": 5,
-        "importPath": "backend_python.app.api.routes",
-        "description": "backend_python.app.api.routes",
-        "peekOfCode": "video_state_repo = VideoStateRepository(db_client)\nvideo_data_repo = VideoDataRepository(db_client)\n@router.post(\"/upload-video/\")\nasync def upload_video(file: UploadFile = File(...)):\n    # Проверка подключения к БД\n    try:\n        client = MongoClient(DATABASE_URL)\n        client.admin.command('ping')\n        print(\"MongoDB доступен\")\n    except ConnectionFailure as e:",
-        "detail": "backend_python.app.api.routes",
-        "documentation": {}
-    },
-    {
-        "label": "video_data_repo",
-        "kind": 5,
-        "importPath": "backend_python.app.api.routes",
-        "description": "backend_python.app.api.routes",
-        "peekOfCode": "video_data_repo = VideoDataRepository(db_client)\n@router.post(\"/upload-video/\")\nasync def upload_video(file: UploadFile = File(...)):\n    # Проверка подключения к БД\n    try:\n        client = MongoClient(DATABASE_URL)\n        client.admin.command('ping')\n        print(\"MongoDB доступен\")\n    except ConnectionFailure as e:\n        print(f\"Ошибка подключения к MongoDB: {e}\")",
-        "detail": "backend_python.app.api.routes",
-        "documentation": {}
-    },
-    {
-        "label": "celery_app",
-        "kind": 5,
-        "importPath": "backend_python.app.config.celery_config",
-        "description": "backend_python.app.config.celery_config",
-        "peekOfCode": "celery_app = Celery(\n    'app',\n    broker='amqp://guest:guest@localhost:5672//',  # Подключение к RabbitMQ через localhost\n    backend='redis://localhost:6379/0',  # Подключение к Redis через localhost\n)\n# Конфигурация задач Celery\ncelery_app.conf.update(\n    task_routes={\n        'app.tasks.*': {'queue': 'default'},\n    },",
-        "detail": "backend_python.app.config.celery_config",
-        "documentation": {}
-    },
-    {
-        "label": "env",
-        "kind": 5,
-        "importPath": "backend_python.app.config.config",
-        "description": "backend_python.app.config.config",
-        "peekOfCode": "env = Env()\nDATABASE_URL = env.str(\n    'DB_URL',\n    default=\"mongodb://qioto:qwerty@localhost:27017/\"\n)\nCELERY_URL = env.str(\n    \"CELERY_URL\",\n    default=\"pyamqp://guest:guest@localhost//\"\n)\nUPLOAD_PATH = env.str(",
-        "detail": "backend_python.app.config.config",
-        "documentation": {}
-    },
-    {
-        "label": "DATABASE_URL",
-        "kind": 5,
-        "importPath": "backend_python.app.config.config",
-        "description": "backend_python.app.config.config",
-        "peekOfCode": "DATABASE_URL = env.str(\n    'DB_URL',\n    default=\"mongodb://qioto:qwerty@localhost:27017/\"\n)\nCELERY_URL = env.str(\n    \"CELERY_URL\",\n    default=\"pyamqp://guest:guest@localhost//\"\n)\nUPLOAD_PATH = env.str(\n    \"UPLOAD_PATH\",",
-        "detail": "backend_python.app.config.config",
-        "documentation": {}
-    },
-    {
-        "label": "CELERY_URL",
-        "kind": 5,
-        "importPath": "backend_python.app.config.config",
-        "description": "backend_python.app.config.config",
-        "peekOfCode": "CELERY_URL = env.str(\n    \"CELERY_URL\",\n    default=\"pyamqp://guest:guest@localhost//\"\n)\nUPLOAD_PATH = env.str(\n    \"UPLOAD_PATH\",\n    default=\"../data/upload/\"\n)",
-        "detail": "backend_python.app.config.config",
-        "documentation": {}
-    },
-    {
-        "label": "UPLOAD_PATH",
-        "kind": 5,
-        "importPath": "backend_python.app.config.config",
-        "description": "backend_python.app.config.config",
-        "peekOfCode": "UPLOAD_PATH = env.str(\n    \"UPLOAD_PATH\",\n    default=\"../data/upload/\"\n)",
-        "detail": "backend_python.app.config.config",
-        "documentation": {}
-    },
-    {
-        "label": "MongoDBClient",
-        "kind": 6,
-        "importPath": "backend_python.app.database.mongo",
-        "description": "backend_python.app.database.mongo",
-        "peekOfCode": "class MongoDBClient:\n    def __init__(self, uri: str, db_name: str):\n        self.client = MongoClient(uri)\n        self.db = self.client[db_name]\n    def get_collection(self, collection_name: str):\n        return self.db[collection_name]",
-        "detail": "backend_python.app.database.mongo",
-        "documentation": {}
-    },
-    {
-        "label": "VideoStateRepository",
-        "kind": 6,
-        "importPath": "backend_python.app.database.repositories",
-        "description": "backend_python.app.database.repositories",
-        "peekOfCode": "class VideoStateRepository:\n    def __init__(self, db_client: MongoDBClient, collection_name: str = \"video_states\"):\n        self.collection = db_client.get_collection(collection_name)\n    def add_video_state(self, video_id: str, state: str):\n        document = {\"_id\": video_id, \"state\": state}\n        try:\n            self.collection.insert_one(document)\n        except DuplicateKeyError:\n            raise ValueError(f\"Video state with ID '{video_id}' already exists.\")\n        except PyMongoError as e:",
-        "detail": "backend_python.app.database.repositories",
-        "documentation": {}
-    },
-    {
-        "label": "VideoDataRepository",
-        "kind": 6,
-        "importPath": "backend_python.app.database.repositories",
-        "description": "backend_python.app.database.repositories",
-        "peekOfCode": "class VideoDataRepository:\n    def __init__(self, db_client: MongoDBClient, collection_name: str = \"video_data\"):\n        self.collection = db_client.get_collection(collection_name)\n    def add_video_data(self, video_id: str, csv_data: str):\n        document = {\"_id\": video_id, \"csv\": csv_data}\n        try:\n            self.collection.insert_one(document)\n        except DuplicateKeyError:\n            raise ValueError(f\"Video data with ID '{video_id}' already exists.\")\n        except PyMongoError as e:",
-        "detail": "backend_python.app.database.repositories",
-        "documentation": {}
-    },
-    {
-        "label": "ML",
-        "kind": 6,
-        "importPath": "backend_python.app.ml.ml",
-        "description": "backend_python.app.ml.ml",
-        "peekOfCode": "class ML:\n    def __init__(self, _id, url):\n        self._id = _id\n        self.url = url\n    # TODO: Change to ML\n    def ml_template(self) -> tuple:\n        data = [\n            ['ID', 'Name', 'Age'],\n            [1, 'John', 28],\n            [2, 'Jane', 22]",
-        "detail": "backend_python.app.ml.ml",
-        "documentation": {}
-    },
-    {
-        "label": "process_video",
-        "kind": 2,
-        "importPath": "backend_python.app.tasks.tasks",
-        "description": "backend_python.app.tasks.tasks",
-        "peekOfCode": "def process_video(file_location: str, vid: str):\n    # ML init\n    ml_model = ML(vid, file_location)\n    video_id, csv_data = ml_model.ml_template()\n    # save csv to db\n    video_data_repo.add_video_data(video_id, csv_data)\n    # update state\n    video_state_repo.update_video_state(video_id, \"completed\")",
-        "detail": "backend_python.app.tasks.tasks",
-        "documentation": {}
-    },
-    {
-        "label": "read_root",
-        "kind": 2,
-        "importPath": "backend_python.app.main",
-        "description": "backend_python.app.main",
-        "peekOfCode": "def read_root():\n    return {\"message\": \"Backend is running!\"}",
-        "detail": "backend_python.app.main",
-        "documentation": {}
-    },
-    {
-        "label": "app",
-        "kind": 5,
-        "importPath": "backend_python.app.main",
-        "description": "backend_python.app.main",
-        "peekOfCode": "app = FastAPI()\napp.mount(\"/uploads\", StaticFiles(directory=\"uploads\"), name=\"uploads\")\n# TODO: Change in prod\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],  \n    allow_credentials=True,\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"]\n)",
-        "detail": "backend_python.app.main",
-        "documentation": {}
-    },
-    {
-        "label": "connection",
-        "kind": 5,
-        "importPath": "ml.test_send",
-        "description": "ml.test_send",
-        "peekOfCode": "connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost', port=5672))\nchannel = connection.channel()\nchannel.queue_declare(queue='video_processing')\nmessage = {\n    \"processing_id\": \"12345\",\n    \"file_path\": \"/path/to/video.mp4\"\n}\nchannel.basic_publish(\n    exchange='',\n    routing_key='video_processing',",
-        "detail": "ml.test_send",
-        "documentation": {}
-    },
-    {
-        "label": "channel",
-        "kind": 5,
-        "importPath": "ml.test_send",
-        "description": "ml.test_send",
-        "peekOfCode": "channel = connection.channel()\nchannel.queue_declare(queue='video_processing')\nmessage = {\n    \"processing_id\": \"12345\",\n    \"file_path\": \"/path/to/video.mp4\"\n}\nchannel.basic_publish(\n    exchange='',\n    routing_key='video_processing',\n    body=json.dumps(message),",
-        "detail": "ml.test_send",
-        "documentation": {}
-    },
-    {
-        "label": "message",
-        "kind": 5,
-        "importPath": "ml.test_send",
-        "description": "ml.test_send",
-        "peekOfCode": "message = {\n    \"processing_id\": \"12345\",\n    \"file_path\": \"/path/to/video.mp4\"\n}\nchannel.basic_publish(\n    exchange='',\n    routing_key='video_processing',\n    body=json.dumps(message),\n)\nprint(\"Sent task:\", message)",
-        "detail": "ml.test_send",
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
         "documentation": {}
     },
     {
@@ -486,16 +65,25 @@
         "kind": 2,
         "importPath": "ml.worker",
         "description": "ml.worker",
-        "peekOfCode": "def process_video(file_path):\n    print(f\"Processing video: {file_path}\")\n    time.sleep(5)\n    return [[\"Part 1\", \"00:00\", \"00:30\"], [\"Part 2\", \"00:31\", \"01:00\"]]\ndef save_csv(processing_id, csv_data):\n    output_file = f\"{processing_id}.csv\"\n    with open(output_file, mode=\"w\", newline=\"\") as file:\n        writer = csv.writer(file)\n        writer.writerow([\"Part\", \"Start time\", \"End time\"])\n        writer.writerows(csv_data)",
+        "peekOfCode": "def process_video(file_path):\n    print(f\"Processing video: {file_path}\")\n    time.sleep(5)\n    return [[\"Part 1\", \"00:00\", \"00:30\"], [\"Part 2\", \"00:31\", \"01:00\"]]\ndef update_status_in_postgresql(processing_id, status):\n    query = \"UPDATE processing_status SET status = %s WHERE processing_id = %s\"\n    pg_cursor.execute(query, (status, processing_id))\n    pg_connection.commit()\n    print(f\"Updated status for {processing_id} to {status}\")\ndef save_results_to_mongodb(processing_id, csv_data):",
         "detail": "ml.worker",
         "documentation": {}
     },
     {
-        "label": "save_csv",
+        "label": "update_status_in_postgresql",
         "kind": 2,
         "importPath": "ml.worker",
         "description": "ml.worker",
-        "peekOfCode": "def save_csv(processing_id, csv_data):\n    output_file = f\"{processing_id}.csv\"\n    with open(output_file, mode=\"w\", newline=\"\") as file:\n        writer = csv.writer(file)\n        writer.writerow([\"Part\", \"Start time\", \"End time\"])\n        writer.writerows(csv_data)\n    print(f\"Saved CSV: {output_file}\")\ndef on_message(channel, method, properties, body):\n    message = json.loads(body)\n    processing_id = message[\"processing_id\"]",
+        "peekOfCode": "def update_status_in_postgresql(processing_id, status):\n    query = \"UPDATE processing_status SET status = %s WHERE processing_id = %s\"\n    pg_cursor.execute(query, (status, processing_id))\n    pg_connection.commit()\n    print(f\"Updated status for {processing_id} to {status}\")\ndef save_results_to_mongodb(processing_id, csv_data):\n    document = {\n        \"_id\": processing_id,\n        \"result_path\": csv_data\n    }",
+        "detail": "ml.worker",
+        "documentation": {}
+    },
+    {
+        "label": "save_results_to_mongodb",
+        "kind": 2,
+        "importPath": "ml.worker",
+        "description": "ml.worker",
+        "peekOfCode": "def save_results_to_mongodb(processing_id, csv_data):\n    document = {\n        \"_id\": processing_id,\n        \"result_path\": csv_data\n    }\n    collection_results.replace_one({\"_id\": processing_id}, document, upsert=True)\n    print(f\"Saved results to MongoDB for {processing_id}\")\ndef on_message(channel, method, properties, body):\n    message = json.loads(body)\n    processing_id = message[\"processing_id\"]",
         "detail": "ml.worker",
         "documentation": {}
     },
@@ -504,7 +92,79 @@
         "kind": 2,
         "importPath": "ml.worker",
         "description": "ml.worker",
-        "peekOfCode": "def on_message(channel, method, properties, body):\n    message = json.loads(body)\n    processing_id = message[\"processing_id\"]\n    file_path = message[\"file_path\"]\n    print(f\"Received task: {processing_id} - {file_path}\")\n    csv_data = process_video(file_path)\n    save_csv(processing_id, csv_data)\n    channel.basic_ack(delivery_tag=method.delivery_tag)\nconnection = pika.BlockingConnection(pika.ConnectionParameters(host=\"localhost\", port=\"5672\"))\nchannel = connection.channel()",
+        "peekOfCode": "def on_message(channel, method, properties, body):\n    message = json.loads(body)\n    processing_id = message[\"processing_id\"]\n    file_path = message[\"file_path\"]\n    print(f\"Received task: {processing_id} - {file_path}\")\n    try:\n        update_status_in_postgresql(processing_id, \"processing\")\n        csv_data = process_video(file_path)\n        save_results_to_mongodb(processing_id, csv_data)\n        update_status_in_postgresql(processing_id, \"completed\")",
+        "detail": "ml.worker",
+        "documentation": {}
+    },
+    {
+        "label": "mongo_url",
+        "kind": 5,
+        "importPath": "ml.worker",
+        "description": "ml.worker",
+        "peekOfCode": "mongo_url = os.getenv(\"MONGO_URL\", \"mongodb://localhost:27017\")\nmongo_client = MongoClient(mongo_url)\nmongo_db = mongo_client[\"video_processing_db\"]\ncollection_results = mongo_db[\"collection_results\"]\npg_connection = psycopg2.connect(\n    dbname=os.getenv(\"POSTGRES_DB\", \"video_processing_db\"),\n    user=os.getenv(\"POSTGRES_USER\", \"postgres\"),\n    password=os.getenv(\"POSTGRES_PASSWORD\", \"password\"),\n    host=os.getenv(\"POSTGRES_HOST\", \"localhost\"),\n    port=os.getenv(\"POSTGRES_PORT\", 5440)",
+        "detail": "ml.worker",
+        "documentation": {}
+    },
+    {
+        "label": "mongo_client",
+        "kind": 5,
+        "importPath": "ml.worker",
+        "description": "ml.worker",
+        "peekOfCode": "mongo_client = MongoClient(mongo_url)\nmongo_db = mongo_client[\"video_processing_db\"]\ncollection_results = mongo_db[\"collection_results\"]\npg_connection = psycopg2.connect(\n    dbname=os.getenv(\"POSTGRES_DB\", \"video_processing_db\"),\n    user=os.getenv(\"POSTGRES_USER\", \"postgres\"),\n    password=os.getenv(\"POSTGRES_PASSWORD\", \"password\"),\n    host=os.getenv(\"POSTGRES_HOST\", \"localhost\"),\n    port=os.getenv(\"POSTGRES_PORT\", 5440)\n)",
+        "detail": "ml.worker",
+        "documentation": {}
+    },
+    {
+        "label": "mongo_db",
+        "kind": 5,
+        "importPath": "ml.worker",
+        "description": "ml.worker",
+        "peekOfCode": "mongo_db = mongo_client[\"video_processing_db\"]\ncollection_results = mongo_db[\"collection_results\"]\npg_connection = psycopg2.connect(\n    dbname=os.getenv(\"POSTGRES_DB\", \"video_processing_db\"),\n    user=os.getenv(\"POSTGRES_USER\", \"postgres\"),\n    password=os.getenv(\"POSTGRES_PASSWORD\", \"password\"),\n    host=os.getenv(\"POSTGRES_HOST\", \"localhost\"),\n    port=os.getenv(\"POSTGRES_PORT\", 5440)\n)\npg_cursor = pg_connection.cursor()",
+        "detail": "ml.worker",
+        "documentation": {}
+    },
+    {
+        "label": "collection_results",
+        "kind": 5,
+        "importPath": "ml.worker",
+        "description": "ml.worker",
+        "peekOfCode": "collection_results = mongo_db[\"collection_results\"]\npg_connection = psycopg2.connect(\n    dbname=os.getenv(\"POSTGRES_DB\", \"video_processing_db\"),\n    user=os.getenv(\"POSTGRES_USER\", \"postgres\"),\n    password=os.getenv(\"POSTGRES_PASSWORD\", \"password\"),\n    host=os.getenv(\"POSTGRES_HOST\", \"localhost\"),\n    port=os.getenv(\"POSTGRES_PORT\", 5440)\n)\npg_cursor = pg_connection.cursor()\ndef process_video(file_path):",
+        "detail": "ml.worker",
+        "documentation": {}
+    },
+    {
+        "label": "pg_connection",
+        "kind": 5,
+        "importPath": "ml.worker",
+        "description": "ml.worker",
+        "peekOfCode": "pg_connection = psycopg2.connect(\n    dbname=os.getenv(\"POSTGRES_DB\", \"video_processing_db\"),\n    user=os.getenv(\"POSTGRES_USER\", \"postgres\"),\n    password=os.getenv(\"POSTGRES_PASSWORD\", \"password\"),\n    host=os.getenv(\"POSTGRES_HOST\", \"localhost\"),\n    port=os.getenv(\"POSTGRES_PORT\", 5440)\n)\npg_cursor = pg_connection.cursor()\ndef process_video(file_path):\n    print(f\"Processing video: {file_path}\")",
+        "detail": "ml.worker",
+        "documentation": {}
+    },
+    {
+        "label": "pg_cursor",
+        "kind": 5,
+        "importPath": "ml.worker",
+        "description": "ml.worker",
+        "peekOfCode": "pg_cursor = pg_connection.cursor()\ndef process_video(file_path):\n    print(f\"Processing video: {file_path}\")\n    time.sleep(5)\n    return [[\"Part 1\", \"00:00\", \"00:30\"], [\"Part 2\", \"00:31\", \"01:00\"]]\ndef update_status_in_postgresql(processing_id, status):\n    query = \"UPDATE processing_status SET status = %s WHERE processing_id = %s\"\n    pg_cursor.execute(query, (status, processing_id))\n    pg_connection.commit()\n    print(f\"Updated status for {processing_id} to {status}\")",
+        "detail": "ml.worker",
+        "documentation": {}
+    },
+    {
+        "label": "rabbitmq_host",
+        "kind": 5,
+        "importPath": "ml.worker",
+        "description": "ml.worker",
+        "peekOfCode": "rabbitmq_host = os.getenv(\"RABBIT_HOST\", \"localhost\")\nrabbitmq_port = os.getenv(\"RABBIT_PORT\", 5672)\nconnection = pika.BlockingConnection(pika.ConnectionParameters(host=rabbitmq_host, port=rabbitmq_port))\nchannel = connection.channel()\nchannel.queue_declare(queue=\"video_processing\")\nchannel.basic_consume(queue=\"video_processing\", on_message_callback=on_message)\nprint(\"Waiting for messages...\")\nchannel.start_consuming()",
+        "detail": "ml.worker",
+        "documentation": {}
+    },
+    {
+        "label": "rabbitmq_port",
+        "kind": 5,
+        "importPath": "ml.worker",
+        "description": "ml.worker",
+        "peekOfCode": "rabbitmq_port = os.getenv(\"RABBIT_PORT\", 5672)\nconnection = pika.BlockingConnection(pika.ConnectionParameters(host=rabbitmq_host, port=rabbitmq_port))\nchannel = connection.channel()\nchannel.queue_declare(queue=\"video_processing\")\nchannel.basic_consume(queue=\"video_processing\", on_message_callback=on_message)\nprint(\"Waiting for messages...\")\nchannel.start_consuming()",
         "detail": "ml.worker",
         "documentation": {}
     },
@@ -513,7 +173,7 @@
         "kind": 5,
         "importPath": "ml.worker",
         "description": "ml.worker",
-        "peekOfCode": "connection = pika.BlockingConnection(pika.ConnectionParameters(host=\"localhost\", port=\"5672\"))\nchannel = connection.channel()\nchannel.queue_declare(queue=\"video_processing\")\nchannel.basic_consume(queue=\"video_processing\", on_message_callback=on_message)\nprint(\"Waiting for messages...\")\nchannel.start_consuming()",
+        "peekOfCode": "connection = pika.BlockingConnection(pika.ConnectionParameters(host=rabbitmq_host, port=rabbitmq_port))\nchannel = connection.channel()\nchannel.queue_declare(queue=\"video_processing\")\nchannel.basic_consume(queue=\"video_processing\", on_message_callback=on_message)\nprint(\"Waiting for messages...\")\nchannel.start_consuming()",
         "detail": "ml.worker",
         "documentation": {}
     },

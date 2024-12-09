@@ -1,18 +1,58 @@
-Работа сайта:
-В связи с тем, что выделилось мало времени на разработку, мы успели написать и поднять бэк на фастапи, поднять монго дб через докер и связать бэк с фронтом,
-но не успели связать бэк с уже готовым ml сервисом. Однако и то, и то отлично функционирует и будет связно в будущем.
+# 🎥 Video Analysis System
 
-ml сервис:
-Весь код программировался и запускался на cpu. Если запускается на gpu, то в блоке "Определение смысла" необходимо заменить в device 'cpu' на 'cuda' (предварительно скачать).
-Можно использовать более мощные модели на gpu, например, whisper base и выше. В связи с низкой производительностью процессоров не хватило времени дообучать модель по распознаванию
-иностранных агентов ('inoagent_train.ipynb')
+This project is a video analysis system that allows users to upload videos, break them into semantic parts, highlight the essence, find non-residents using an ML service and display the results via a web interface.
 
-Для работы программы необходимо:
-1. Установить ffmpeg с официального сайта и добавить в переменные среды (системные переменные) в путь файла path адрес до скачанной папки и дополнительно прописать заход в папку bin:
-Если путь до папки C:\ffmpeg, то в переменные среды добавляем C:\ffmpeg\bin
-2. Установить tesseract с официального сайт (выбрать 2 галочки для русского языка) и добавить также в path путь до папки с заходом в неё ('\'):
-Если путь до папки C:\Program Files\Tesseract-OCR, то в переменные среды добавляем C:\Program Files\Tesseract-OCR\
-3. Доустановить библиотеки, которых нет :)
+## 🚀 Key Features
 
-Доп память в репозиторий:
-https://drive.google.com/drive/folders/1KGfCYmoi4Ac1lUKhtvNCLQdmIkZ2ak7a?usp=sharing
+-	Frontend:
+  	-	A simple and user-friendly web interface for uploading videos and viewing results.
+-	Backend:
+  	-	Built with Go for performance and scalability.
+  	-	Powered by Gin for routing and Zap for structured logging.
+-	Asynchronous Processing:
+  	-	Video tasks are queued using RabbitMQ, ensuring smooth processing.
+  	-	Background worker processes tasks with a Python ML service.
+-	Data Storage:
+ 	-	MongoDB for storing processed video results.
+  	-	PostgreSQL for tracking video processing statuses.
+
+## 📦 Tech Stack
+
+| Component | Technology |
+| --- | --- |
+| Backend | Go (Gin, Zap) |
+| Worker | Python (Tensorflow, Whisper, GPT2, Torch) |
+| Frontend | HTML, CSS, JS |
+| Message Queue | RabbitMQ |
+| Databases | MongoDB, PostgreSQL |
+| Cache | Redis |
+
+## 🖥️ Installation
+  
+```bash
+git clone https://github.com/EZsmail/ww.git
+cd ww
+docker compose up --build
+```
+  
+## 🖥️ Usage
+  
+Go to the address `http://localhost:8000`
+The port may change depending on which one you specified in docker-compose.yaml.
+  
+## 📈 Future Enhancements
+
+-	Full integration with advanced ML models for better video analysis.  
+-	GPU acceleration to improve processing speed.  
+-	Enhanced frontend visualization for a richer user experience.  
+
+## 🤝 How to Contribute
+
+We welcome contributions, suggestions, and feature requests! Check out the issues page for ideas.  
+  
+1.	Fork this repository.  
+2.	Create a new branch for your feature or fix.  
+3.	Make your changes and commit them.  
+4.	Push your branch to your forked repository.  
+5.	Submit a pull request for review.  
+ 
