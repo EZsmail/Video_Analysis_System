@@ -166,3 +166,6 @@ backend_golang/uploads/
 
 .env
 .vscode/PythonImportHelper-v2-Completion.json
+real_ml/inoagent_train.ipynb
+real_ml/result_neyrob1t.ipynb
+trash
